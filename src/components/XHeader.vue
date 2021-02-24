@@ -1,6 +1,6 @@
 <template>
     <div>
-        <x-header :left-options="newLeftOptions">{{ title }} <a slot="right" v-show="!noright" @click="helpCenter">帮助</a></x-header>
+        <x-header :left-options="newLeftOptions">{{ title }} <a slot="right" v-show="!noright">帮助</a></x-header>
     </div>
 </template>
 
@@ -27,9 +27,9 @@ export default {
         };
     },
     methods: {
-        helpCenter() {
-            this.$router.push('./helpCenter');
-        }
+        // helpCenter() {
+        //     this.$router.push('./helpCenter');
+        // }
     }
 };
 </script>

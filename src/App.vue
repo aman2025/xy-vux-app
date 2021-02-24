@@ -1,7 +1,6 @@
 <template>
     <div id="app">
         <XyzCommonVue></XyzCommonVue>
-        <Index />
         <router-view></router-view>
     </div>
 </template>
