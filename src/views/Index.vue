@@ -2,7 +2,9 @@
     <div>
         <XHeader :title="title"></XHeader>
         <div class="indexHeader">新意科技有限公司</div>
-
+        <!-- 功能名称 -->
+        <Entry />
+        <!-- //功能名称 -->
         <!-- 看板tab -->
         <tab :line-width="2" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
             <tab-item :badge-label="item.tnum" :selected="tabActive === item.tname" v-for="(item, index) in tabData" @click="tabActive = item.tname" :key="index">{{ item.tname }}</tab-item>
@@ -22,12 +24,14 @@
 import { Tab, TabItem  } from 'vux';
 import XHeader from '../components/XHeader';
 import Board from '../components/Board';
+import Entry from '../components/Entry';
 export default {
     name: 'Index',
     components: {
             XHeader,
             TabItem,
             Tab,
+            Entry,
             Board
         },
     data() {
