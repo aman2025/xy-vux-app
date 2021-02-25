@@ -110,7 +110,7 @@ export default {
                 level2: [
                     { icon: 'item01', name: '我的功能01', path: '' },
                     { icon: 'item01', name: '我的功能02', path: '' },
-                    { icon: 'item100', name: '全部', path: '/manageApp' }
+                    { icon: 'item100', name: '全部', path: './manageApp' }
                 ]
             }
         };

@@ -2,8 +2,9 @@
     <div>
         <x-header :left-options="newLeftOptions">
             {{ title }}
-            <a slot="left" v-show="hasclose">Close</a>
-            <a slot="right" v-show="!noright">帮助</a>
+            <a slot="left" v-show="hasclose">取消</a>
+            <a slot="right" v-show="hassave" @click="save">{{ '保存' }}</a>
+            <a slot="right" v-show="hassave ? false : !noright">{{ '帮助' }}</a>
         </x-header>
     </div>
 </template>
@@ -18,6 +19,7 @@ export default {
     props: {
         title: String,
         hasclose: Boolean,
+        hassave: Boolean,
         noright: Boolean,
         leftOptions: Object
     },
@@ -34,6 +36,9 @@ export default {
         // helpCenter() {
         //     this.$router.push('./helpCenter');
         // }
+        save() {
+            this.$router.push('/');
+        }
     }
 };
 </script>
