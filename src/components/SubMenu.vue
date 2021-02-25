@@ -2,7 +2,7 @@
     <div>
         <!-- sub-menu -->
         <div class="sub-menu">
-            <a href="#" v-for="(item, index) in subMenuData" :key="index">
+            <a href="#" v-for="(item, index) in subMenuData" :key="index" @click="goto(item.path)">
                 <i :class="item.icon"></i>
                 <span>{{ item.name }}</span>
             </a>
@@ -12,19 +12,16 @@
 </template>
 
 <script>
-
 export default {
-    components: {
-        
-    },
+    components: {},
     props: ['subMenuData'],
     data() {
-        return {
-            
-        };
+        return {};
     },
     methods: {
-        
+        goto(path) {
+            this.$router.push(path);
+        }
     }
 };
 </script>
@@ -54,5 +51,8 @@ export default {
 
 .sub-menu a .item01 {
     background-image: url(../assets/icon-func01.png);
+}
+.sub-menu a .item100 {
+    background-image: url(../assets/icon-all.png);
 }
 </style>

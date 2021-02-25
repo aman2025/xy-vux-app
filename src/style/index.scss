@@ -119,12 +119,16 @@ html {
   }
   .shadow-top{
     margin-top: .1rem;
-    box-shadow: 0 -0.02rem 0.05rem 0 rgba(0,0,0,.08);
+    box-shadow: 0 -0.02rem 0.05rem 0 rgba(0,0,0,.06);
   }
   .shadow-bottom{
-    box-shadow: 0 0.02rem 0.05rem 0 rgba(0,0,0,.08);
+    box-shadow: 0 0.02rem 0.05rem 0 rgba(0,0,0,.06);
+    margin-bottom: .12rem;
   }
 
+.vux-divider{
+    color: #ccc !important;
+}
 //   tab
 .vux-tab .vux-tab-item{
     font-size: 0.14rem !important;

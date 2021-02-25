@@ -4,21 +4,9 @@
             <h3>分类一</h3>
             <div>
                 <ul>
-                    <li>
+                    <li v-for="(item, index) in data01" :key="index">
                         <i></i>
-                        <span>运营执行情况总览</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>资金交收-证券</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>存管业务监控</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>清算业务监控</span>
+                        <span>{{ item.title }}</span>
                     </li>
                 </ul>
             </div>
@@ -27,21 +15,9 @@
             <h3>分类二</h3>
             <div>
                 <ul>
-                    <li>
+                    <li v-for="(item, index) in data02" :key="index">
                         <i></i>
-                        <span>监控名称01</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>监控名称02</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>监控名称03</span>
-                    </li>
-                    <li>
-                        <i></i>
-                        <span>监控名称04</span>
+                        <span>{{ item.title }}</span>
                     </li>
                 </ul>
             </div>
@@ -54,7 +30,10 @@ export default {
     components: {},
     props: {},
     data() {
-        return {};
+        return {
+            data01: [{ title: '运营执行情况总览' }, { title: '资金交收-证券' }, { title: '存管业务监控' }, { title: '清算业务监控' }],
+            data02: [{ title: '监控名称01' }, { title: '监控名称02' }, { title: '监控名称03' }, { title: '监控名称04' }]
+        };
     },
     methods: {}
 };

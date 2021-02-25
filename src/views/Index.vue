@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Tab, TabItem  } from 'vux';
+import { Tab, TabItem } from 'vux';
 import XHeader from '../components/XHeader';
 import Board from '../components/Board';
 import Notice from '../components/Notice';
@@ -36,28 +36,33 @@ import MenuBox from '../components/MenuBox';
 export default {
     name: 'Index',
     components: {
-            XHeader,
-            TabItem,
-            Tab,
-            Notice,
-            MenuBox,
-            Board
-        },
+        XHeader,
+        TabItem,
+        Tab,
+        Notice,
+        MenuBox,
+        Board
+    },
     data() {
         return {
             title: '运营管理平台',
-            tabData: [{tname: '看板', tnum: ''}, {tname: '待办', tnum: ''}, {tname: '通知', tnum: '1'}],
-            tabActive: {name: '看板', index: 0, color: '#3A90E2'}
-        }
+            tabData: [
+                { tname: '看板', tnum: '' },
+                { tname: '待办', tnum: '' },
+                { tname: '通知', tnum: '1' }
+            ],
+            tabActive: { name: '看板', index: 0, color: '#3A90E2' }
+        };
     }
-}
+};
 </script>
 <style lang="scss">
 .indexHeader {
-    height: 80px;
+    height: 0.9rem;
     background-color: #0077dd;
     color: #fff;
-    font-size: 16px;
-    padding: 10px;
+    font-size: 0.18rem;
+    padding: 0.1rem;
+    letter-spacing: 0.02rem;
 }
 </style>

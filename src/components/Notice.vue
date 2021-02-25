@@ -71,20 +71,13 @@
 </template>
 
 <script>
-
 export default {
-    components: {
-        
-    },
-    props: {
-    },
+    components: {},
+    props: {},
     data() {
-        return {
-        };
+        return {};
     },
-    methods: {
-        
-    }
+    methods: {}
 };
 </script>
 <style lang="scss">
@@ -126,16 +119,16 @@ export default {
 .notice-container .notice-item .notice-item-content .notice-item-content-right {
     text-align: right;
     color: #999;
-    font-size: 0.14rem;
+    font-size: 0.12rem;
 }
 .notice-container .notice-item .notice-item-tab {
-    height: 0.26rem;
-    line-height: 0.26rem;
-    border-radius: 0.13rem;
-    padding: 0 0.15rem;
+    height: 0.22rem;
+    line-height: 0.22rem;
+    border-radius: 0.11rem;
+    padding: 0 0.12rem;
     background-color: #ecf3fc;
     margin-right: 0.1rem;
-    font-size: 0.14rem;
+    font-size: 0.12rem;
     color: #3a90e2;
 }
 .notice-container .notice-item .notice-item-tab.tabColor02 {

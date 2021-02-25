@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-        <div class="menu-content">
+        <div class="menu-content shadow-bottom">
             <div v-for="item in menus" :key="item.id" v-show="activeId == item.id">
                 <SubMenu :subMenuData="subMenuData.level2" />
             </div>
@@ -108,16 +108,15 @@ export default {
             activeId: '2',
             myMenus: {
                 level2: [
-                    { icon: 'item01', name: '我的功能01' },
-                    { icon: 'item01', name: '我的功能02' },
-                    { icon: 'item01', name: '全部' }
+                    { icon: 'item01', name: '我的功能01', path: '' },
+                    { icon: 'item01', name: '我的功能02', path: '' },
+                    { icon: 'item100', name: '全部', path: '/manageApp' }
                 ]
             }
         };
     },
     computed: {
         subMenuData: function () {
-            console.log(this);
             const _this = this;
             if (this.activeId == '999') {
                 return this.myMenus;
@@ -141,7 +140,7 @@ export default {
 </script>
 <style lang="scss">
 .menu-box {
-    margin-top: -0.28rem;
+    margin-top: -0.33rem;
     position: relative;
 }
 .menu-box .menu-my {
@@ -151,13 +150,13 @@ export default {
     width: 0.6rem;
     text-align: center;
     z-index: 9;
-    height: 0.28rem;
-    line-height: 0.28rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
     color: #fff;
 }
 .menu-box .menu-container {
     overflow: auto;
-    background-color: rgba(0, 113, 225, 0.1);
+    background-color: rgba(4, 72, 139, 0.16);
     padding: 0 0 0 0.6rem;
     color: #fff;
 }
@@ -169,8 +168,8 @@ export default {
 }
 .menu-box .menu-container .menu-list .menu-item {
     flex: 0 0 1rem;
-    height: 0.28rem;
-    line-height: 0.28rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
     text-align: center;
     white-space: nowrap;
 }
