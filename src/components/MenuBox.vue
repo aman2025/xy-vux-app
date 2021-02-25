@@ -1,10 +1,21 @@
 <template>
-    <div class="menu-box">
-        <div class="menu-my">我的</div>
-        <div class="menu-container">
-            <div class="menu-list">
-                <div class="menu-item" v-for="item in menus" :key="item.id">{{ item.name }}</div>
+    <div class="menu">
+        <div class="menu-box">
+            <div class="menu-my" :class="{ 'menu-selected': activeId == '999' }" @click="changeMenu('999')">我的</div>
+            <div class="menu-container">
+                <div class="menu-list">
+                    <div class="menu-item" :class="{ 'menu-selected': item.id == activeId }" @click="changeMenu(item.id)" v-for="item in menus" :key="item.id">{{ item.level1 }}</div>
+                </div>
             </div>
+        </div>
+        <div class="menu-content">
+            <div v-show="activeId == '1'">菜单名称01</div>
+            <div v-show="activeId == '2'">菜单名称02</div>
+            <div v-show="activeId == '3'">菜单名称03</div>
+            <div v-show="activeId == '4'">菜单名称04</div>
+            <div v-show="activeId == '5'">菜单名称05</div>
+            <div v-show="activeId == '6'">菜单名称06</div>
+            <div v-show="activeId == '999'">我的</div>
         </div>
     </div>
 </template>
@@ -19,17 +30,24 @@ export default {
     data() {
         return {
             menus: [
-                {id: '1', name: '菜单名称01'},
-                {id: '2', name: '菜单名称02'},
-                {id: '3', name: '菜单名称03'},
-                {id: '4', name: '菜单名称04'},
-                {id: '5', name: '菜单名称05'},
-                {id: '6', name: '菜单名称06'}
-                ]
+                {id: '1', level1: '菜单名称01', subMenu: []},
+                {id: '2', level1: '菜单名称02', subMenu: []},
+                {id: '3', level1: '菜单名称03', subMenu: []},
+                {id: '4', level1: '菜单名称04', subMenu: []},
+                {id: '5', level1: '菜单名称05', subMenu: []},
+                {id: '6', level1: '菜单名称06', subMenu: []}
+                ],
+            activeId: '2'
         };
     },
     methods: {
-        
+        changeMenu(id){
+            if(id == '999'){
+               this.activeId = '999'
+            }else{
+                this.activeId = id
+            }
+        }
     }
 };
 </script>
@@ -45,6 +63,8 @@ export default {
     width: 0.6rem;
     text-align: center;
     z-index: 9;
+    height: 0.28rem;
+    line-height: 0.28rem;
     color: #fff;
 }
 .menu-box .menu-container {
@@ -62,7 +82,12 @@ export default {
 .menu-box .menu-container .menu-list .menu-item {
     flex: 0 0 1rem;
     height: 0.28rem;
+    line-height: 0.28rem;
     text-align: center;
     white-space: nowrap;
+}
+.menu-selected {
+    background-color: #1280f1;
+    color: #fff;
 }
 </style>

@@ -6,11 +6,11 @@
         <MenuBox />
         <!-- //菜单 -->
         <!-- 功能名称 -->
-        <Entry class="shadow-bottom" />
+        <!-- <Entry class="shadow-bottom" /> -->
         <!-- //功能名称 -->
         <!-- 看板tab -->
         <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
-            <tab-item :badge-label="item.tnum" :selected="tabActive === item.tname" v-for="(item, index) in tabData" @click="tabActive = item.tname" :key="index">{{ item.tname }}</tab-item>
+            <tab-item :badge-label="item.tnum" :selected="tabActive.name === item.tname" v-for="(item, index) in tabData" @click="tabActive.name = item.tname" :key="index">{{ item.tname }}</tab-item>
         </tab>
         <div>
             <div v-show="tabActive.index == 0">
