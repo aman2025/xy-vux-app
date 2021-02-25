@@ -8,26 +8,30 @@
             </a>
             <a href="#">
                 <i class="item01"></i>
-                <span>功能名称01</span>
+                <span>功能名称02</span>
             </a>
             <a href="#">
                 <i class="item01"></i>
-                <span>功能名称01</span>
+                <span>功能名称03</span>
             </a>
             <a href="#">
                 <i class="item01"></i>
-                <span>功能名称01</span>
+                <span>功能名称04</span>
             </a>
             <a href="#">
                 <i class="item01"></i>
-                <span>功能名称01</span>
+                <span>功能名称05</span>
             </a>
             <a href="#">
                 <i class="item01"></i>
+                <span>功能名称06</span>
+            </a>
+            <a href="#">
+                <i class="item07"></i>
                 <span>功能名称01</span>
             </a>
             <a href="#">
-                <i class="item01"></i>
+                <i class="item08"></i>
                 <span>功能名称01</span>
             </a>
         </div>
@@ -59,6 +63,9 @@ export default {
     -webkit-box-align: center;
     justify-content: flex-start;
     flex-wrap: wrap;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .entry a {

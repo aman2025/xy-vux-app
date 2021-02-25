@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App';
 import router from '@/router';
 import store from '@/store';
-
+import './style/index.scss';
 //第三方组件引入开始
 
 //使用 fastclick 解决移动端 300ms 点击延迟
