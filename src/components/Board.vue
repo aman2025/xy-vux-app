@@ -67,12 +67,12 @@ export default {
 </script>
 <style lang="scss">
 .board {
-    padding: 10px 15px;
+    padding: 0.1rem 0.15rem;
 }
 .board h3 {
     font-weight: normal;
-    font-size: 16px;
-    padding-bottom: 10px;
+    font-size: 0.16rem;
+    padding-bottom: 0.1rem;
 }
 .board ul {
     display: flex;
@@ -80,13 +80,13 @@ export default {
     justify-content: space-between;
 }
 .board ul li {
-    flex: 0 0 calc(50% - 10px);
-    border-radius: 6px;
+    flex: 0 0 calc(50% - 0.1rem);
+    border-radius: 0.06rem;
     background-color: #eeeeee;
     color: #666;
-    margin-right: 10px;
-    margin-bottom: 8px;
-    padding: 15px;
+    margin-right: 0.1rem;
+    margin-bottom: 0.08rem;
+    padding: 0.1rem 0 0.1rem 0.1rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
@@ -95,12 +95,15 @@ export default {
     margin-right: 0;
 }
 .board ul li i {
-    width: 22px;
-    height: 22px;
+    width: 0.2rem;
+    height: 0.2rem;
     background-image: url(../assets/icon-i01.png);
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    margin: 3px 8px 0 0;
+    margin: 0.03rem 0.08rem 0 0;
+}
+.board ul li span {
+    padding: 0.02rem 0 0;
 }
 </style>

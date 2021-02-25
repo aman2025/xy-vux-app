@@ -63,13 +63,13 @@ export default {
     -webkit-box-align: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 0.2rem 0 0;
+    padding: 0.15rem 0 0.05rem;
 }
 
 .entry a {
     flex: 0 0 25%;
     text-align: center;
-    padding-bottom: 0.2rem;
+    padding-bottom: 0.12rem;
 }
 
 .entry a i {

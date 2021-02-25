@@ -2,6 +2,9 @@
     <div>
         <XHeader :title="title"></XHeader>
         <div class="indexHeader">新意科技有限公司</div>
+        <!-- 菜单 -->
+        <MenuBox />
+        <!-- //菜单 -->
         <!-- 功能名称 -->
         <Entry class="shadow-bottom" />
         <!-- //功能名称 -->
@@ -20,7 +23,7 @@
             </div>
             <div v-show="tabActive.index == 2">
                 <!-- 通知 -->
-                通知
+                <Notice />
             </div>
         </div>
         <!-- // 看板tab -->
@@ -33,6 +36,7 @@ import XHeader from '../components/XHeader';
 import Board from '../components/Board';
 import Entry from '../components/Entry';
 import Notice from '../components/Notice';
+import MenuBox from '../components/MenuBox';
 export default {
     name: 'Index',
     components: {
@@ -41,6 +45,7 @@ export default {
             Tab,
             Entry,
             Notice,
+            MenuBox,
             Board
         },
     data() {

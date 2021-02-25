@@ -48,7 +48,7 @@
                 </div>
                 <div class="notice-item-content">
                     <div class="notice-item-content-left">
-                        <span class="notice-item-tab type02">标签02</span>
+                        <span class="notice-item-tab tabColor02">标签02</span>
                     </div>
                     <div class="notice-item-content-right">2021-01-08 10:00:00</div>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="notice-item-content">
                     <div class="notice-item-content-left">
-                        <span class="notice-item-tab type02">标签02</span>
+                        <span class="notice-item-tab tabColor02">标签02</span>
                     </div>
                     <div class="notice-item-content-right">2021-01-08 10:00:00</div>
                 </div>
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-// import { XHeader } from 'vux';
 
 export default {
     components: {
@@ -104,12 +103,16 @@ export default {
 .notice-container .notice-item .notice-item-title .notice-item-title-num {
     color: #f5a623;
 }
-.notice-container .notice-item .notice-item-title .icon-warn {
-    display: block;
+.notice-container .notice-item .notice-item-title i {
+    display: none;
     width: 0.2rem;
     height: 0.2rem;
-    margin: 0.04rem 0.06rem 0 0;
+    margin: 0.01rem 0 0 0;
+}
+.notice-container .notice-item .notice-item-title i.icon-warn {
+    display: block;
     background-image: url(../assets/icon-warn.png);
+    margin-right: 0.06rem;
 }
 .notice-container .notice-item .notice-item-content {
     display: flex;
@@ -135,7 +138,7 @@ export default {
     font-size: 0.14rem;
     color: #3a90e2;
 }
-.notice-container .notice-item .notice-item-tab.type02 {
+.notice-container .notice-item .notice-item-tab.tabColor02 {
     background-color: #fef6e9;
     color: #f5a92b;
 }
