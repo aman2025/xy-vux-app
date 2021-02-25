@@ -50,19 +50,13 @@
 </template>
 
 <script>
-
 export default {
-    components: {
-        
-    },
+    components: {},
     props: {},
     data() {
-        return {
-        };
+        return {};
     },
-    methods: {
-        
-    }
+    methods: {}
 };
 </script>
 <style lang="scss">
@@ -71,7 +65,7 @@ export default {
 }
 .board h3 {
     font-weight: normal;
-    font-size: 0.16rem;
+    font-size: 0.14rem;
     padding-bottom: 0.1rem;
 }
 .board ul {

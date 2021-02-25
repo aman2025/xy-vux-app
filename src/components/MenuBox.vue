@@ -9,43 +9,131 @@
             </div>
         </div>
         <div class="menu-content">
-            <div v-show="activeId == '1'">菜单名称01</div>
-            <div v-show="activeId == '2'">菜单名称02</div>
-            <div v-show="activeId == '3'">菜单名称03</div>
-            <div v-show="activeId == '4'">菜单名称04</div>
-            <div v-show="activeId == '5'">菜单名称05</div>
-            <div v-show="activeId == '6'">菜单名称06</div>
-            <div v-show="activeId == '999'">我的</div>
+            <div v-for="item in menus" :key="item.id" v-show="activeId == item.id">
+                <SubMenu :subMenuData="subMenuData.level2" />
+            </div>
+            <div v-show="activeId == '999'">
+                <SubMenu :subMenuData="subMenuData.level2" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import SubMenu from '../components/SubMenu';
 
 export default {
     components: {
-        
+        SubMenu
     },
     props: [],
     data() {
         return {
             menus: [
-                {id: '1', level1: '菜单名称01', subMenu: []},
-                {id: '2', level1: '菜单名称02', subMenu: []},
-                {id: '3', level1: '菜单名称03', subMenu: []},
-                {id: '4', level1: '菜单名称04', subMenu: []},
-                {id: '5', level1: '菜单名称05', subMenu: []},
-                {id: '6', level1: '菜单名称06', subMenu: []}
-                ],
-            activeId: '2'
+                {
+                    id: '1',
+                    level1: '菜单名称01',
+                    level2: [
+                        { icon: 'item01', name: '01功能01' },
+                        { icon: 'item01', name: '01功能02' },
+                        { icon: 'item01', name: '01功能03' },
+                        { icon: 'item01', name: '01功能04' },
+                        { icon: 'item01', name: '01功能05' },
+                        { icon: 'item01', name: '01功能06' },
+                        { icon: 'item01', name: '01功能07' },
+                        { icon: 'item01', name: '01功能08' }
+                    ]
+                },
+                {
+                    id: '2',
+                    level1: '菜单名称02',
+                    level2: [
+                        { icon: 'item01', name: '02功能01' },
+                        { icon: 'item01', name: '02功能02' },
+                        { icon: 'item01', name: '02功能03' },
+                        { icon: 'item01', name: '02功能04' },
+                        { icon: 'item01', name: '02功能05' }
+                    ]
+                },
+                {
+                    id: '3',
+                    level1: '菜单名称03',
+                    level2: [
+                        { icon: 'item01', name: '03功能01' },
+                        { icon: 'item01', name: '03功能02' },
+                        { icon: 'item01', name: '03功能03' },
+                        { icon: 'item01', name: '03功能04' },
+                        { icon: 'item01', name: '03功能05' }
+                    ]
+                },
+                {
+                    id: '4',
+                    level1: '菜单名称04',
+                    level2: [
+                        { icon: 'item01', name: '04功能01' },
+                        { icon: 'item01', name: '04功能02' },
+                        { icon: 'item01', name: '04功能03' },
+                        { icon: 'item01', name: '04功能04' },
+                        { icon: 'item01', name: '04功能06' },
+                        { icon: 'item01', name: '04功能06' }
+                    ]
+                },
+                {
+                    id: '5',
+                    level1: '菜单名称05',
+                    level2: [
+                        { icon: 'item01', name: '05功能01' },
+                        { icon: 'item01', name: '05功能02' },
+                        { icon: 'item01', name: '05功能03' },
+                        { icon: 'item01', name: '05功能04' },
+                        { icon: 'item01', name: '05功能05' },
+                        { icon: 'item01', name: '05功能06' },
+                        { icon: 'item01', name: '05功能07' },
+                        { icon: 'item01', name: '05功能08' }
+                    ]
+                },
+                {
+                    id: '6',
+                    level1: '菜单名称06',
+                    level2: [
+                        { icon: 'item01', name: '06功能01' },
+                        { icon: 'item01', name: '06功能02' },
+                        { icon: 'item01', name: '06功能03' },
+                        { icon: 'item01', name: '06功能04' },
+                        { icon: 'item01', name: '06功能06' },
+                        { icon: 'item01', name: '06功能06' }
+                    ]
+                }
+            ],
+            activeId: '2',
+            myMenus: {
+                level2: [
+                    { icon: 'item01', name: '我的功能01' },
+                    { icon: 'item01', name: '我的功能02' },
+                    { icon: 'item01', name: '全部' }
+                ]
+            }
         };
     },
+    computed: {
+        subMenuData: function () {
+            console.log(this);
+            const _this = this;
+            if (this.activeId == '999') {
+                return this.myMenus;
+            } else {
+                return this.menus.find(function (m) {
+                    return m.id == _this.activeId;
+                });
+            }
+        }
+    },
     methods: {
-        changeMenu(id){
-            if(id == '999'){
-               this.activeId = '999'
-            }else{
-                this.activeId = id
+        changeMenu(id) {
+            if (id == '999') {
+                this.activeId = '999';
+            } else {
+                this.activeId = id;
             }
         }
     }

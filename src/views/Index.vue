@@ -5,9 +5,6 @@
         <!-- 菜单 -->
         <MenuBox />
         <!-- //菜单 -->
-        <!-- 功能名称 -->
-        <!-- <Entry class="shadow-bottom" /> -->
-        <!-- //功能名称 -->
         <!-- 看板tab -->
         <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
             <tab-item :badge-label="item.tnum" :selected="tabActive.name === item.tname" v-for="(item, index) in tabData" @click="tabActive.name = item.tname" :key="index">{{ item.tname }}</tab-item>
@@ -34,7 +31,6 @@
 import { Tab, TabItem  } from 'vux';
 import XHeader from '../components/XHeader';
 import Board from '../components/Board';
-import Entry from '../components/Entry';
 import Notice from '../components/Notice';
 import MenuBox from '../components/MenuBox';
 export default {
@@ -43,7 +39,6 @@ export default {
             XHeader,
             TabItem,
             Tab,
-            Entry,
             Notice,
             MenuBox,
             Board
