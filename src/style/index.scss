@@ -5,7 +5,7 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
-    font-size: 50px;
+    font-size: 100px;
   }
   *,
   *::before,
@@ -22,7 +22,7 @@ html {
     height: 100%;
   }
   body {
-    color: #333;
+    color: #666;
     height: 100%;
     font-size: .16rem;
     line-height: 1.6;
@@ -49,7 +49,7 @@ html {
     background-size: 100%;
   }
   a {
-    color: #333;
+    color: #666;
     text-decoration: none;
     background-color: transparent;
     -webkit-user-select: none;
@@ -114,4 +114,19 @@ html {
   h3 {
     font-size: 0.28rem;
   }
-  
+  .blank{
+      background-color: #fff;
+      height: 0.1rem;
+  }
+  .shadow-top{
+    margin-top: .1rem;
+    box-shadow: 0 -0.02rem 0.05rem 0 rgba(0,0,0,.08);
+  }
+  .shadow-bottom{
+    box-shadow: 0 0.02rem 0.05rem 0 rgba(0,0,0,.08);
+  }
+
+//   tab
+.vux-tab .vux-tab-item{
+    font-size: 0.16rem !important;
+}
