@@ -7,6 +7,7 @@
 
 <script>
 import XHeader from '../components/XHeader';
+
 export default {
     name: 'Index',
     components: {
@@ -16,7 +17,8 @@ export default {
         return {
             title: '功能页'
         };
-    }
+    },
+    methods: {}
 };
 </script>
 <style lang="scss">

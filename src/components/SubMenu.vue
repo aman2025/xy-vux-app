@@ -1,22 +1,44 @@
 <template>
-    <div>
+    <div :class="{ 'my-swiper': menuType == 'my' }">
         <!-- sub-menu -->
-        <div class="sub-menu">
-            <div class="sub-menu-item" v-for="(item, index) in subMenuData" :key="index" @click="goto(item.path)">
-                <i :class="item.icon"></i>
-                <span>{{ item.name }}</span>
-            </div>
-        </div>
+        <swiper v-model="swiperItemIndex" dots-position="center">
+            <swiper-item v-for="(item, i) in swiperItemTotal" :key="i">
+                <div class="sub-menu">
+                    <div class="sub-menu-item" v-for="(item, index) in singleSwiperData" :key="index" @click="goto(item.path)">
+                        <i :class="item.icon"></i>
+                        <span>{{ item.name }}</span>
+                    </div>
+                </div>
+            </swiper-item>
+        </swiper>
         <!-- //sub-menu -->
     </div>
 </template>
 
 <script>
+import { Swiper, SwiperItem } from 'vux';
 export default {
-    components: {},
-    props: ['subMenuData'],
+    components: {
+        Swiper,
+        SwiperItem
+    },
+    props: ['subMenuData', 'menuType'],
     data() {
-        return {};
+        return {
+            swiperItemIndex: 0,
+            number: 8
+        };
+    },
+    computed: {
+        swiperItemTotal: function () {
+            // 根据二级菜单数据计算swiperItem个数
+            return Math.ceil(this.subMenuData.length / this.number);
+        },
+        singleSwiperData: function () {
+            // 计算当前swiperItem中的数据个数
+            const swiperIndex = this.swiperItemIndex;
+            return this.subMenuData.slice(swiperIndex * this.number, (swiperIndex + 1) * this.number);
+        }
     },
     methods: {
         goto(path) {
@@ -54,5 +76,8 @@ export default {
 }
 .sub-menu .sub-menu-item .item100 {
     background-image: url(../assets/icon-all.png);
+}
+.my-swiper .vux-slider .vux-swiper {
+    height: 1.18rem !important;
 }
 </style>

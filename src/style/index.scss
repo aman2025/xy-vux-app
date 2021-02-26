@@ -129,7 +129,19 @@ html {
 .vux-divider{
     color: #ccc !important;
 }
+// 主题色
+$primaryColor: #0A8BF7;
 //   tab
 .vux-tab .vux-tab-item{
     font-size: 0.14rem !important;
+}
+// swiper 
+.vux-slider > .vux-indicator > a > .vux-icon-dot,
+.vux-slider .vux-indicator-right > a > .vux-icon-dot{
+    width: 0.08rem !important;
+ }
+.vux-slider > .vux-indicator > a > .vux-icon-dot.active,
+.vux-slider .vux-indicator-right > a > .vux-icon-dot.active {
+    background-color: $primaryColor !important;
+    width: .18rem !important;
 }
