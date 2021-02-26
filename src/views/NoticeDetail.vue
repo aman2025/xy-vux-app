@@ -1,6 +1,6 @@
 <template>
     <div>
-        <XHeader :title="title" headerType="line"></XHeader>
+        <XHeader :title="title" headerType="line" :noright="true"></XHeader>
         <div class="notice-detail">
             <h3>上市券商2020年业绩“预告”:已有 12家净利润超10亿元中信证券达 149亿元</h3>
             <h5>2021-01-08 10:00:00</h5>

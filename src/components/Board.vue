@@ -4,7 +4,7 @@
             <h3>分类一</h3>
             <div>
                 <ul>
-                    <li v-for="(item, index) in data01" :key="index">
+                    <li v-for="(item, index) in data01" :key="index" @click="linkto(item.path)">
                         <i></i>
                         <span>{{ item.title }}</span>
                     </li>
@@ -31,11 +31,25 @@ export default {
     props: {},
     data() {
         return {
-            data01: [{ title: '运营执行情况总览' }, { title: '资金交收-证券' }, { title: '存管业务监控' }, { title: '清算业务监控' }],
-            data02: [{ title: '监控名称01' }, { title: '监控名称02' }, { title: '监控名称03' }, { title: '监控名称04' }]
+            data01: [
+                { title: '运营执行情况总览', path: './boardDetail' },
+                { title: '资金交收-证券', path: './boardDetail' },
+                { title: '存管业务监控', path: './boardDetail' },
+                { title: '清算业务监控', path: './boardDetail' }
+            ],
+            data02: [
+                { title: '监控名称01', path: './boardDetail' },
+                { title: '监控名称02', path: './boardDetail' },
+                { title: '监控名称03', path: './boardDetail' },
+                { title: '监控名称04', path: './boardDetail' }
+            ]
         };
     },
-    methods: {}
+    methods: {
+        linkto(path) {
+            path && this.$router.push(path);
+        }
+    }
 };
 </script>
 <style lang="scss">
