@@ -7,7 +7,7 @@
                     <li v-for="(item, index) in apps" :key="index">
                         <i></i>
                         <span>{{ item.name }}</span>
-                        <em :class="{'icon-delete': selected}"></em>
+                        <em :class="{ 'icon-delete': selected }"></em>
                     </li>
                 </ul>
             </div>
@@ -68,10 +68,10 @@ export default {
 }
 .app-list ul li em {
     position: absolute;
-    top: .03rem;
-    right: .03rem;
-    width: 0.2rem;
-    height: 0.2rem;
+    top: 0.03rem;
+    right: 0.03rem;
+    width: 0.16rem;
+    height: 0.16rem;
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
