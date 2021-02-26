@@ -2,9 +2,10 @@
     <div>
         <!-- sub-menu -->
         <div class="sub-menu">
-            <a href="#" v-for="(item, index) in subMenuData" :key="index" @click="goto(item.path)">
+            <!-- <button @click="goto">goto</button> -->
+            <a href="#" v-for="(item, index) in subMenuData" :key="index">
                 <i :class="item.icon"></i>
-                <span>{{ item.name }}</span>
+                <span @click="goto">{{ item.name }}</span>
             </a>
         </div>
         <!-- //sub-menu -->
@@ -19,8 +20,8 @@ export default {
         return {};
     },
     methods: {
-        goto(path) {
-            this.$router.push(path);
+        goto() {
+            this.$router.push('./manageApp');
         }
     }
 };

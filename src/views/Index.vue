@@ -53,7 +53,8 @@ export default {
             ],
             tabActive: { name: '看板', index: 0, color: '#3A90E2' }
         };
-    }
+    },
+    methods: {}
 };
 </script>
 <style lang="scss">
