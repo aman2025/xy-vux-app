@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'my-swiper': menuType == 'my' }">
         <!-- sub-menu -->
-        <swiper v-model="swiperItemIndex" dots-position="center">
+        <swiper v-model="swiperItemIndex" dots-position="center" :show-dots="swiperItemTotal != 1">
             <swiper-item v-for="(item, i) in swiperItemTotal" :key="i">
                 <div class="sub-menu">
                     <div class="sub-menu-item" v-for="(item, index) in singleSwiperData" :key="index" @click="goto(item.path)">
@@ -78,6 +78,6 @@ export default {
     background-image: url(../assets/icon-all.png);
 }
 .my-swiper .vux-slider .vux-swiper {
-    height: 1.18rem !important;
+    height: 1rem !important;
 }
 </style>
