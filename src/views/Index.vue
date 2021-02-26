@@ -7,7 +7,7 @@
         <!-- //菜单 -->
         <!-- 看板tab -->
         <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
-            <tab-item :badge-label="item.tnum" :selected="tabActive.name === item.tname" v-for="(item, index) in tabData" @click="tabActive.name = item.tname" :key="index">{{ item.tname }}</tab-item>
+            <tab-item :badge-label="item.tnum" :selected="tabActive.index == index" v-for="(item, index) in tabData" @on-item-click="changeTab(index)" :key="index">{{ item.tname }}</tab-item>
         </tab>
         <div>
             <div v-show="tabActive.index == 0">
@@ -16,7 +16,7 @@
             </div>
             <div v-show="tabActive.index == 1">
                 <!-- 待办 -->
-                <Notice />
+                <Notice :noticeData="todoData" />
             </div>
             <div v-show="tabActive.index == 2">
                 <!-- 通知 -->
@@ -51,10 +51,96 @@ export default {
                 { tname: '待办', tnum: '' },
                 { tname: '通知', tnum: '1' }
             ],
-            tabActive: { name: '看板', index: 0, color: '#3A90E2' }
+            tabActive: { name: '看板', index: this.$store.state.tabActiveIndex, color: '#3A90E2' },
+            todoData: [
+                {
+                    id: 1,
+                    title: '资金凭证审批',
+                    number: 1,
+                    isWarn: true,
+                    time: '5分钟',
+                    tabs: [
+                        {
+                            text: '标签01',
+                            type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: '划款强制确认复核',
+                    number: 2,
+                    isWarn: false,
+                    time: '10分钟',
+                    tabs: [
+                        {
+                            text: '标签01',
+                            type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: '直销退款申请复核',
+                    number: 2,
+                    isWarn: false,
+                    time: '2021-01-08 10:00:00',
+                    tabs: [
+                        {
+                            text: '标签01',
+                            type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: '待办事项名称02',
+                    number: 0,
+                    isWarn: false,
+                    time: '2021-01-08 10:00:00',
+                    tabs: [
+                        {
+                            text: '标签02',
+                            type: '2'
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: '待办事项名称03',
+                    number: 0,
+                    isWarn: false,
+                    time: '2021-01-08 10:00:00',
+                    tabs: [
+                        {
+                            text: '标签02',
+                            type: '2'
+                        }
+                    ]
+                }
+            ],
+            noticeData: [
+                {
+                    id: 1,
+                    title: '主板清算“数据录入”有新增代码和权益登记日',
+                    number: 5,
+                    isWarn: true,
+                    time: '5分钟',
+                    tabs: [
+                        {
+                            text: '标签01',
+                            type: '1'
+                        }
+                    ]
+                }
+            ]
         };
     },
-    methods: {}
+    methods: {
+        changeTab(i) {
+            this.$store.state.tabActiveIndex = i;
+        }
+    }
 };
 </script>
 <style lang="scss">

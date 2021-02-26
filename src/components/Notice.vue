@@ -1,69 +1,19 @@
 <template>
     <div>
         <div class="notice-container">
-            <div class="notice-item">
+            <div v-for="item in noticeData" :key="item.id" class="notice-item">
                 <div class="notice-item-title">
-                    <i class="icon-warn"></i>
-                    <span>资金凭证审批</span>
-                    <div class="notice-item-title-num">(<em>5</em>)</div>
+                    <i :class="{ 'icon-warn': item.isWarn }"></i>
+                    <span>{{ item.title }}</span>
+                    <div v-show="item.number != 0" class="notice-item-title-num">
+                        ( <em>{{ item.number }}</em> )
+                    </div>
                 </div>
                 <div class="notice-item-content">
                     <div class="notice-item-content-left">
-                        <span class="notice-item-tab">标签01</span>
+                        <span v-for="(t, i) in item.tabs" :key="i" class="notice-item-tab" :class="{ tabColor02: t.type == 2 }">{{ t.text }}</span>
                     </div>
-                    <div class="notice-item-content-right">5分钟</div>
-                </div>
-            </div>
-            <div class="notice-item">
-                <div class="notice-item-title">
-                    <i></i>
-                    <span>划款强制确认复核</span>
-                    <div class="notice-item-title-num">(<em>2</em>)</div>
-                </div>
-                <div class="notice-item-content">
-                    <div class="notice-item-content-left">
-                        <span class="notice-item-tab">标签01</span>
-                    </div>
-                    <div class="notice-item-content-right">10分钟</div>
-                </div>
-            </div>
-            <div class="notice-item">
-                <div class="notice-item-title">
-                    <i></i>
-                    <span>直销退款申请复核</span>
-                    <div class="notice-item-title-num">(<em>2</em>)</div>
-                </div>
-                <div class="notice-item-content">
-                    <div class="notice-item-content-left">
-                        <span class="notice-item-tab">标签01</span>
-                    </div>
-                    <div class="notice-item-content-right">2021-01-08 10:00:00</div>
-                </div>
-            </div>
-            <div class="notice-item">
-                <div class="notice-item-title">
-                    <i></i>
-                    <span>待办事项名称02</span>
-                    <div class="notice-item-title-num">(<em>3</em>)</div>
-                </div>
-                <div class="notice-item-content">
-                    <div class="notice-item-content-left">
-                        <span class="notice-item-tab tabColor02">标签02</span>
-                    </div>
-                    <div class="notice-item-content-right">2021-01-08 10:00:00</div>
-                </div>
-            </div>
-            <div class="notice-item">
-                <div class="notice-item-title">
-                    <i></i>
-                    <span>待办事项名称03</span>
-                    <div class="notice-item-title-num">(<em>8</em>)</div>
-                </div>
-                <div class="notice-item-content">
-                    <div class="notice-item-content-left">
-                        <span class="notice-item-tab tabColor02">标签02</span>
-                    </div>
-                    <div class="notice-item-content-right">2021-01-08 10:00:00</div>
+                    <div class="notice-item-content-right">{{ item.time }}</div>
                 </div>
             </div>
         </div>
@@ -73,7 +23,7 @@
 <script>
 export default {
     components: {},
-    props: {},
+    props: ['noticeData'],
     data() {
         return {};
     },
@@ -82,7 +32,7 @@ export default {
 </script>
 <style lang="scss">
 .notice-container {
-    padding: 0;
+    padding: 0 0.15rem;
 }
 .notice-container .notice-item {
     padding: 0.1rem 0.1rem;
@@ -90,10 +40,10 @@ export default {
 }
 .notice-container .notice-item .notice-item-title {
     display: flex;
-    padding-bottom: 0.1rem;
+    padding-bottom: 0.05rem;
     color: #333;
 }
-.notice-container .notice-item .notice-item-title .notice-item-title-num {
+.notice-container .notice-item .notice-item-title .notice-item-title-num em {
     color: #f5a623;
 }
 .notice-container .notice-item .notice-item-title i {
