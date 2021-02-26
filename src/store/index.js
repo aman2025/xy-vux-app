@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         menuActiveId: '999',
-        tabActiveIndex: 2
+        tabActiveIndex: 0
     },
     getters: {},
     mutations: {},
