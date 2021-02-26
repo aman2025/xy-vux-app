@@ -147,6 +147,7 @@ export default {
                     title: '主板清算“数据录入”有新增代码和权益登记',
                     time: '2021-01-08 1 0:00:00',
                     category: '2',
+                    path: './noticeDetail',
                     readed: true,
                     tabs: [
                         {
@@ -160,6 +161,7 @@ export default {
                     title: '融资融券“数据录入”有新增代码',
                     time: '2021-01-07 10:00:00',
                     category: '2',
+                    path: './noticeDetail',
                     readed: true,
                     tabs: [
                         {
@@ -173,6 +175,7 @@ export default {
                     title: '融资融券“数据录入”有新增代码',
                     time: '2021-01-06 10:00:00',
                     category: '2',
+                    path: './noticeDetail',
                     readed: true,
                     tabs: [
                         {
