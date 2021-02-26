@@ -7,6 +7,7 @@
                     <li v-for="(item, index) in apps" :key="index">
                         <i></i>
                         <span>{{ item.name }}</span>
+                        <em :class="{'icon-delete': selected}"></em>
                     </li>
                 </ul>
             </div>
@@ -17,7 +18,7 @@
 <script>
 export default {
     components: {},
-    props: ['apps', 'title'],
+    props: ['apps', 'title', 'selected'],
     data() {
         return {};
     },
@@ -50,6 +51,7 @@ export default {
     flex-flow: column wrap;
     justify-content: flex-start;
     padding: 0.1rem 0.05rem;
+    position: relative;
 }
 .app-list ul li:nth-child(4n) {
     margin-right: 0;
@@ -63,6 +65,21 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     margin: 0 auto;
+}
+.app-list ul li em {
+    position: absolute;
+    top: .03rem;
+    right: .03rem;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    background-image: url(../assets/add.png);
+}
+.app-list ul li em.icon-delete {
+    background-image: url(../assets/delete.png);
 }
 .app-list ul li span {
     padding: 0.02rem 0 0;

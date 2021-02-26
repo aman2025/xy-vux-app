@@ -4,7 +4,7 @@
         <div class="manage-app-wrap">
             <div class="manage-app shadow-bottom">
                 <h3>我的应用</h3>
-                <AppList :apps="myApps.data" :title="myApps.title" />
+                <AppList :apps="myApps.data" :title="myApps.title" :selected="true" />
                 <divider>最多添加11个应用</divider>
             </div>
             <div class="manage-app shadow-top">

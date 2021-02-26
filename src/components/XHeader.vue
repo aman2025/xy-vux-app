@@ -2,7 +2,7 @@
     <div>
         <x-header :left-options="newLeftOptions">
             {{ title }}
-            <a slot="left" v-show="hasclose">取消</a>
+            <a slot="left" v-show="hasclose"  @click="close">取消</a>
             <a slot="right" v-show="hassave" @click="save">{{ '保存' }}</a>
             <a slot="right" v-show="hassave ? false : !noright">{{ '帮助' }}</a>
         </x-header>
@@ -10,11 +10,13 @@
 </template>
 
 <script>
-import { XHeader } from 'vux';
-
+import Vue from 'vue';
+import { XHeader,ConfirmPlugin  } from 'vux';
+Vue.use(ConfirmPlugin)
 export default {
     components: {
-        XHeader
+        XHeader,
+        ConfirmPlugin 
     },
     props: {
         title: String,
@@ -37,7 +39,18 @@ export default {
         //     this.$router.push('./helpCenter');
         // }
         save() {
-            this.$router.push('/');
+            var _this = this;
+            this.$vux.confirm.show({
+                    title: '是否保存吗?',
+                    onCancel () {
+                    },
+                    onConfirm () {
+                        _this.$router.go(-1);
+                    }
+             })
+        },
+        close() {
+            this.$router.go(-1);
         }
     }
 };

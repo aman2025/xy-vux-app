@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import Index from '../views/Index.vue';
 import ManageApp from '../views/ManageApp.vue';
+import temp from '../views/temp.vue';
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ const router = new Router({
             path: '/manageApp',
             name: 'manageApp',
             component: ManageApp
+        },
+        {
+            path: '/temp',
+            name: 'temp',
+            component: temp
         }
     ]
 });
