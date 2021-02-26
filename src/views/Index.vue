@@ -20,7 +20,7 @@
             </div>
             <div v-show="tabActive.index == 2">
                 <!-- 通知 -->
-                <Notice />
+                <Notice :noticeData="noticeData" />
             </div>
         </div>
         <!-- // 看板tab -->
@@ -70,7 +70,6 @@ export default {
                     id: 2,
                     title: '划款强制确认复核',
                     number: 2,
-                    isWarn: false,
                     time: '10分钟',
                     tabs: [
                         {
@@ -83,7 +82,6 @@ export default {
                     id: 3,
                     title: '直销退款申请复核',
                     number: 2,
-                    isWarn: false,
                     time: '2021-01-08 10:00:00',
                     tabs: [
                         {
@@ -95,8 +93,6 @@ export default {
                 {
                     id: 4,
                     title: '待办事项名称02',
-                    number: 0,
-                    isWarn: false,
                     time: '2021-01-08 10:00:00',
                     tabs: [
                         {
@@ -108,8 +104,6 @@ export default {
                 {
                     id: 5,
                     title: '待办事项名称03',
-                    number: 0,
-                    isWarn: false,
                     time: '2021-01-08 10:00:00',
                     tabs: [
                         {
@@ -123,13 +117,65 @@ export default {
                 {
                     id: 1,
                     title: '主板清算“数据录入”有新增代码和权益登记日',
-                    number: 5,
-                    isWarn: true,
-                    time: '5分钟',
+                    time: '5分钟前',
+                    category: '2',
+                    readed: false,
                     tabs: [
                         {
-                            text: '标签01',
+                            text: '资管业务',
                             type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: '融资融券清算‘数据录入”有新增代码',
+                    time: '10分钟前',
+                    category: '2',
+                    readed: false,
+                    tabs: [
+                        {
+                            text: '资管业务',
+                            type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: '主板清算“数据录入”有新增代码和权益登记',
+                    time: '2021-01-08 1 0:00:00',
+                    category: '2',
+                    readed: true,
+                    tabs: [
+                        {
+                            text: '资管业务',
+                            type: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: '融资融券“数据录入”有新增代码',
+                    time: '2021-01-07 10:00:00',
+                    category: '2',
+                    readed: true,
+                    tabs: [
+                        {
+                            text: '法人业务',
+                            type: '2'
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: '融资融券“数据录入”有新增代码',
+                    time: '2021-01-06 10:00:00',
+                    category: '2',
+                    readed: true,
+                    tabs: [
+                        {
+                            text: '经纪业务',
+                            type: '2'
                         }
                     ]
                 }

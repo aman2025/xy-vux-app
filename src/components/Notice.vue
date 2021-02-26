@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="notice-container">
-            <div v-for="item in noticeData" :key="item.id" class="notice-item">
+            <div v-for="item in noticeData" :key="item.id" class="notice-item" :class="{ 'notice-item-category': item.category == '2', readed: item.readed }">
                 <div class="notice-item-title">
                     <i :class="{ 'icon-warn': item.isWarn }"></i>
                     <span>{{ item.title }}</span>
-                    <div v-show="item.number != 0" class="notice-item-title-num">
+                    <div v-show="item.number" class="notice-item-title-num">
                         ( <em>{{ item.number }}</em> )
                     </div>
                 </div>
@@ -35,10 +35,28 @@ export default {
     padding: 0 0.15rem;
 }
 .notice-container .notice-item {
-    padding: 0.1rem 0.1rem;
+    padding: 0.1rem 0;
     border-bottom: 1px solid #f2f2f2;
 }
+.notice-container .notice-item.notice-item-category {
+    margin-left: 0.15rem;
+}
+.notice-container .notice-item.notice-item-category .notice-item-title:after {
+    content: '';
+    display: block;
+    width: 0.06rem;
+    height: 0.06rem;
+    border-radius: 50%;
+    background-color: #f56565;
+    position: absolute;
+    top: 0.08rem;
+    left: -0.15rem;
+}
+.notice-container .notice-item.notice-item-category.readed .notice-item-title:after {
+    opacity: 0.5;
+}
 .notice-container .notice-item .notice-item-title {
+    position: relative;
     display: flex;
     padding-bottom: 0.05rem;
     color: #333;
