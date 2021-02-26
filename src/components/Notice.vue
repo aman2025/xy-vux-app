@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="notice-container">
-            <div v-for="item in noticeData" :key="item.id" class="notice-item" :class="{ 'notice-item-category': item.category == '2', readed: item.readed }">
+            <div v-for="item in noticeData" :key="item.id" class="notice-item" :class="{ 'notice-item-category': item.category == '2', readed: item.readed }" @click="linkto(item.path)">
                 <div class="notice-item-title">
                     <i :class="{ 'icon-warn': item.isWarn }"></i>
                     <span>{{ item.title }}</span>
@@ -27,7 +27,11 @@ export default {
     data() {
         return {};
     },
-    methods: {}
+    methods: {
+        linkto(path) {
+            path && this.$router.push(path);
+        }
+    }
 };
 </script>
 <style lang="scss">
@@ -54,6 +58,10 @@ export default {
 }
 .notice-container .notice-item.notice-item-category.readed .notice-item-title:after {
     opacity: 0.5;
+}
+.notice-container .notice-item.notice-item-category.readed .notice-item-content .notice-item-content-right,
+.notice-container .notice-item.notice-item-category.readed .notice-item-title {
+    color: #aaa;
 }
 .notice-container .notice-item .notice-item-title {
     position: relative;

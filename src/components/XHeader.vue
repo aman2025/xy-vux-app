@@ -1,8 +1,8 @@
 <template>
     <div>
-        <x-header :left-options="newLeftOptions">
+        <x-header :left-options="newLeftOptions" :class="{ 'header-line': headerType == 'line' }">
             {{ title }}
-            <a slot="left" v-show="hasclose"  @click="close">取消</a>
+            <a slot="left" v-show="hasclose" @click="close">取消</a>
             <a slot="right" v-show="hassave" @click="save">{{ '保存' }}</a>
             <a slot="right" v-show="hassave ? false : !noright">{{ '帮助' }}</a>
         </x-header>
@@ -11,20 +11,14 @@
 
 <script>
 import Vue from 'vue';
-import { XHeader,ConfirmPlugin  } from 'vux';
-Vue.use(ConfirmPlugin)
+import { XHeader, ConfirmPlugin } from 'vux';
+Vue.use(ConfirmPlugin);
 export default {
     components: {
         XHeader,
-        ConfirmPlugin 
+        ConfirmPlugin
     },
-    props: {
-        title: String,
-        hasclose: Boolean,
-        hassave: Boolean,
-        noright: Boolean,
-        leftOptions: Object
-    },
+    props: ['title', 'hasclose', 'hassave', 'noright', 'headerType', 'leftOptions'],
     computed: {
         newLeftOptions: function () {
             // 自定义返回文字和是否显示返回图标
@@ -41,13 +35,12 @@ export default {
         save() {
             var _this = this;
             this.$vux.confirm.show({
-                    title: '是否保存吗?',
-                    onCancel () {
-                    },
-                    onConfirm () {
-                        _this.$router.go(-1);
-                    }
-             })
+                title: '是否保存吗?',
+                onCancel() {},
+                onConfirm() {
+                    _this.$router.go(-1);
+                }
+            });
         },
         close() {
             this.$router.go(-1);
@@ -69,5 +62,8 @@ $color: #333;
 }
 .vux-header .vux-header-left .left-arrow:before {
     border-color: $color !important;
+}
+.header-line {
+    border-bottom: 1px solid #ccc;
 }
 </style>

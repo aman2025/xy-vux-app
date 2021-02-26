@@ -120,6 +120,7 @@ export default {
                     time: '5分钟前',
                     category: '2',
                     readed: false,
+                    path: './noticeDetail',
                     tabs: [
                         {
                             text: '资管业务',
@@ -132,6 +133,7 @@ export default {
                     title: '融资融券清算‘数据录入”有新增代码',
                     time: '10分钟前',
                     category: '2',
+                    path: './noticeDetail',
                     readed: false,
                     tabs: [
                         {
