@@ -156,24 +156,24 @@ export default {
 </script>
 <style lang="scss">
 .menu-box {
-    margin-top: -0.33rem;
+    margin-top: -3.3rem;
     position: relative;
 }
 .menu-box .menu-my {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0.6rem;
+    width: 6rem;
     text-align: center;
     z-index: 9;
-    height: 0.32rem;
-    line-height: 0.32rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
     color: #fff;
 }
 .menu-box .menu-container {
     overflow: auto;
     background-color: rgba(4, 72, 139, 0.16);
-    padding: 0 0 0 0.6rem;
+    padding: 0 0 0 6rem;
     color: #fff;
 }
 .menu-box .menu-container .menu-list {
@@ -183,9 +183,9 @@ export default {
     overflow: auto;
 }
 .menu-box .menu-container .menu-list .menu-item {
-    flex: 0 0 1rem;
-    height: 0.32rem;
-    line-height: 0.32rem;
+    flex: 0 0 10rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
     text-align: center;
     white-space: nowrap;
 }

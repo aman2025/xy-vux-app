@@ -28,20 +28,20 @@ export default {
 // 临时详情样式
 .notice-detail {
     border-top: 1px solid #ccc;
-    padding: 0.1rem 0.2rem;
+    padding: 1rem 2rem;
     text-align: left;
 }
 .notice-detail h3 {
-    font-size: 0.18rem;
+    font-size: 1.8rem;
 }
 .notice-detail h5 {
-    font-size: 0.12rem;
+    font-size: 1.2rem;
     color: #aaa;
-    padding: 0.1rem;
+    padding: 1rem;
     font-weight: normal;
     text-align: right;
 }
 .notice-detail p {
-    margin: 0.1rem 0;
+    margin: 1rem 0;
 }
 </style>

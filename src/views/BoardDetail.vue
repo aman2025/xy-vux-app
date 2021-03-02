@@ -1,7 +1,7 @@
 <template>
     <div>
         <XHeader :title="title" headerType="line" :noright="true"></XHeader>
-        <div style="padding: 0.1rem">
+        <div style="padding: 1rem">
             <img src="../assets/detail01.png" />
         </div>
     </div>

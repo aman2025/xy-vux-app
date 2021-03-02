@@ -196,11 +196,11 @@ export default {
 </script>
 <style lang="scss">
 .indexHeader {
-    height: 0.9rem;
+    height: 9rem;
     background-color: #0077dd;
     color: #fff;
-    font-size: 0.18rem;
-    padding: 0.1rem;
-    letter-spacing: 0.02rem;
+    font-size: 1.8rem;
+    padding: 1rem;
+    letter-spacing: 0.2rem;
 }
 </style>

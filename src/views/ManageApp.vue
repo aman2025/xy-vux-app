@@ -52,12 +52,12 @@ export default {
     border-top: 1px solid #ccc;
 }
 .manage-app {
-    padding: 0.1rem;
+    padding: 1rem;
 }
 .manage-app h3 {
-    font-size: 0.16rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: #333;
-    padding: 0 0 0.1rem;
+    padding: 0 0 1rem;
 }
 </style>

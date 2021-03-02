@@ -55,19 +55,19 @@ export default {
     -webkit-box-align: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 0.15rem 0 0.05rem;
+    padding: 1.5rem 0 0.5rem;
 }
 
 .sub-menu .sub-menu-item {
     flex: 0 0 25%;
     text-align: center;
-    padding-bottom: 0.12rem;
+    padding-bottom: 1.2rem;
 }
 
 .sub-menu .sub-menu-item i {
     display: block;
-    width: 0.32rem;
-    height: 0.32rem;
+    width: 3.2rem;
+    height: 3.2rem;
     margin: 0 auto;
 }
 
@@ -78,6 +78,6 @@ export default {
     background-image: url(../assets/icon-all.png);
 }
 .my-swiper .vux-slider .vux-swiper {
-    height: 1rem !important;
+    height: 10rem !important;
 }
 </style>

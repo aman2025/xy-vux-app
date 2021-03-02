@@ -5,7 +5,7 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
-    font-size: 100px;
+    font-size: 10px;
   }
   *,
   *::before,
@@ -24,7 +24,7 @@ html {
   body {
     color: #666;
     height: 100%;
-    font-size: .14rem;
+    font-size: 1.4rem;
     font-family: -apple-system-font, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', sans-serif;
   }
   body,
@@ -111,19 +111,19 @@ html {
     font: inherit;
   }
   h3 {
-    font-size: 0.28rem;
+    font-size: 2.8rem;
   }
   .blank{
       background-color: #fff;
-      height: 0.1rem;
+      height: 1rem;
   }
   .shadow-top{
-    margin-top: .1rem;
-    box-shadow: 0 -0.02rem 0.05rem 0 rgba(0,0,0,.06);
+    margin-top: 1rem;
+    box-shadow: 0 -0.2rem 0.5rem 0 rgba(0,0,0,.06);
   }
   .shadow-bottom{
-    box-shadow: 0 0.02rem 0.05rem 0 rgba(0,0,0,.06);
-    margin-bottom: .12rem;
+    box-shadow: 0 0.2rem 0.5rem 0 rgba(0,0,0,.06);
+    margin-bottom: 1.2rem;
   }
 
 .vux-divider{
@@ -133,15 +133,15 @@ html {
 $primaryColor: #0A8BF7;
 //   tab
 .vux-tab .vux-tab-item{
-    font-size: 0.14rem !important;
+    font-size: 1.4rem !important;
 }
 // swiper 
 .vux-slider > .vux-indicator > a > .vux-icon-dot,
 .vux-slider .vux-indicator-right > a > .vux-icon-dot{
-    width: 0.08rem !important;
+    width: 0.8rem !important;
  }
 .vux-slider > .vux-indicator > a > .vux-icon-dot.active,
 .vux-slider .vux-indicator-right > a > .vux-icon-dot.active {
     background-color: $primaryColor !important;
-    width: .18rem !important;
+    width: 1.8rem !important;
 }

@@ -27,12 +27,12 @@ export default {
 </script>
 <style lang="scss">
 .app-list {
-    padding: 0 0 0.1rem;
+    padding: 0 0 1rem;
 }
 .app-list h3 {
     font-weight: normal;
-    font-size: 0.14rem;
-    padding-bottom: 0.1rem;
+    font-size: 1.4rem;
+    padding-bottom: 1rem;
 }
 .app-list ul {
     display: flex;
@@ -40,17 +40,17 @@ export default {
     justify-content: flex-start;
 }
 .app-list ul li {
-    flex: 0 0 calc(25% - 0.1rem);
-    border-radius: 0.06rem;
+    flex: 0 0 calc(25% - 1rem);
+    border-radius: 0.6rem;
     background-color: #eeeeee;
     color: #666;
-    margin-right: 0.1rem;
-    margin-bottom: 0.1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
     text-align: center;
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
-    padding: 0.1rem 0.05rem;
+    padding: 1rem 0.5rem;
     position: relative;
 }
 .app-list ul li:nth-child(4n) {
@@ -58,8 +58,8 @@ export default {
     flex: 0 0 25%;
 }
 .app-list ul li i {
-    width: 0.4rem;
-    height: 0.4rem;
+    width: 4rem;
+    height: 4rem;
     background-image: url(../assets/icon-func01.png);
     background-size: 100%;
     background-position: center;
@@ -68,10 +68,10 @@ export default {
 }
 .app-list ul li em {
     position: absolute;
-    top: 0.03rem;
-    right: 0.03rem;
-    width: 0.16rem;
-    height: 0.16rem;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 1.6rem;
+    height: 1.6rem;
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -82,6 +82,6 @@ export default {
     background-image: url(../assets/delete.png);
 }
 .app-list ul li span {
-    padding: 0.02rem 0 0;
+    padding: 0.2rem 0 0;
 }
 </style>
