@@ -37,10 +37,9 @@ export default {
 .app-list ul {
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
 }
 .app-list ul li {
-    flex: 0 0 calc(25% - 1rem);
+    flex: 0 0 calc(25% - 0.75rem);
     border-radius: 0.6rem;
     background-color: #eeeeee;
     color: #666;
@@ -49,14 +48,14 @@ export default {
     text-align: center;
     display: flex;
     flex-flow: column wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 1rem 0.5rem;
     position: relative;
 }
 .app-list ul li:nth-child(4n) {
     margin-right: 0;
-    flex: 0 0 25%;
 }
+
 .app-list ul li i {
     width: 4rem;
     height: 4rem;
