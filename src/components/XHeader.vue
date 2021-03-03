@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="header-wrap">
         <x-header :left-options="newLeftOptions" :class="{ 'header-line': headerType == 'line' }">
             {{ title }}
             <a slot="left" v-show="hasclose" @click="close">取消</a>
@@ -65,5 +65,12 @@ $color: #333;
 }
 .header-line {
     border-bottom: 1px solid #ccc;
+}
+.header-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 99;
 }
 </style>

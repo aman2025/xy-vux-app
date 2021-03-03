@@ -61,7 +61,7 @@ export default {
 .sub-menu .sub-menu-item {
     flex: 0 0 25%;
     text-align: center;
-    padding-bottom: 1.2rem;
+    padding: 0 0.5rem 1.2rem;
 }
 
 .sub-menu .sub-menu-item i {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <XHeader :title="title" :hasclose="true" :hassave="true" :left-options="leftOptions"></XHeader>
+        <XHeader :title="title" :hasclose="true" :hassave="true" :left-options="leftOptions" headerType="line"></XHeader>
         <div class="manage-app-wrap">
             <div class="manage-app shadow-bottom">
                 <h3>我的应用</h3>
