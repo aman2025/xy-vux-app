@@ -193,6 +193,7 @@ export default {
     },
     methods: {
         changeTab(i) {
+            // 当前选择的tab
             this.$store.state.tabActiveIndex = i;
         }
     }
@@ -203,6 +204,7 @@ export default {
     position: sticky;
     position: -webkit-sticky;
     top: 4.6rem;
+    z-index: 99;
 }
 .indexHeader {
     height: 9rem;
