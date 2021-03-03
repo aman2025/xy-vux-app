@@ -6,21 +6,25 @@
         <MenuBox />
         <!-- //菜单 -->
         <!-- 看板tab -->
-        <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
-            <tab-item :badge-label="item.tnum" :selected="tabActive.index == index" v-for="(item, index) in tabData" @on-item-click="changeTab(index)" :key="index">{{ item.tname }}</tab-item>
-        </tab>
         <div>
-            <div v-show="tabActive.index == 0">
-                <!-- 看板 -->
-                <Board />
+            <div class="tab-sticky">
+                <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
+                    <tab-item :badge-label="item.tnum" :selected="tabActive.index == index" v-for="(item, index) in tabData" @on-item-click="changeTab(index)" :key="index">{{ item.tname }}</tab-item>
+                </tab>
             </div>
-            <div v-show="tabActive.index == 1">
-                <!-- 待办 -->
-                <Notice :noticeData="todoData" />
-            </div>
-            <div v-show="tabActive.index == 2">
-                <!-- 通知 -->
-                <Notice :noticeData="noticeData" />
+            <div>
+                <div v-show="tabActive.index == 0">
+                    <!-- 看板 -->
+                    <Board />
+                </div>
+                <div v-show="tabActive.index == 1">
+                    <!-- 待办 -->
+                    <Notice :noticeData="todoData" />
+                </div>
+                <div v-show="tabActive.index == 2">
+                    <!-- 通知 -->
+                    <Notice :noticeData="noticeData" />
+                </div>
             </div>
         </div>
         <!-- // 看板tab -->
@@ -195,6 +199,11 @@ export default {
 };
 </script>
 <style lang="scss">
+.tab-sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 4.6rem;
+}
 .indexHeader {
     height: 9rem;
     background-color: #0077dd;
