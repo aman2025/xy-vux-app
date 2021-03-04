@@ -1,16 +1,23 @@
-'use strict'
+'use strict';
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
+const path = require('path');
 
 module.exports = {
     dev: {
-
         // Paths
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        proxyTable: {},
+        proxyTable: {
+            '/': {
+                target: 'http://localhost:8848', //设置你调用的接口域名和端口号
+                changeOrigin: true, //是否跨域
+                pathRewrite: {
+                    '^/v1': '/nacos/v1'
+                }
+            }
+        },
 
         // Various Dev Server settings
         host: '0.0.0.0', // can be overwritten by process.env.HOST
@@ -19,7 +26,6 @@ module.exports = {
         errorOverlay: true,
         notifyOnErrors: true,
         poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
 
         /**
          * Source Maps
@@ -66,4 +72,4 @@ module.exports = {
         // Set to `true` or `false` to always turn it on or off
         bundleAnalyzerReport: process.env.npm_config_report
     }
-}
+};

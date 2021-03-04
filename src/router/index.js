@@ -5,6 +5,8 @@ import Index from '../views/Index.vue';
 import ManageApp from '../views/ManageApp.vue';
 import NoticeDetail from '../views/NoticeDetail.vue';
 import BoardDetail from '../views/BoardDetail.vue';
+// 临时
+import Api from '../views/Api.vue';
 import temp from '../views/temp.vue';
 
 Vue.use(Router);
@@ -35,6 +37,11 @@ const router = new Router({
             path: '/temp',
             name: 'temp',
             component: temp
+        },
+        {
+            path: '/api',
+            name: 'Api',
+            component: Api
         }
     ]
 });
