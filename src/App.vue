@@ -1,5 +1,6 @@
 <template>
     <div id="app" class="app-container">
+        <loading :show="$store.state.isLoad" text="加载中..."></loading>
         <XyzCommonVue></XyzCommonVue>
         <router-view></router-view>
     </div>

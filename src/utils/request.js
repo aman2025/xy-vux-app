@@ -16,9 +16,8 @@
 
 import axios from 'axios';
 import qs from 'qs';
-// import { Message } from '@alifd/next';
 import { isPlainObject } from './util';
-// import { SUCCESS_RESULT_CODE } from '../constants';
+import store from '../store';
 
 const API_GENERAL_ERROR_MESSAGE = 'Request error, please try again later!';
 
@@ -29,15 +28,34 @@ function goLogin() {
     window.location.href = `${base_url}#/login`;
 }
 
+// loading, count防止同时多个请求，执行多次loading
+let loadingCount = 0;
+const openLoading = cb => {
+    if (!loadingCount) {
+        store.commit('setIsLoad', true);
+    }
+    loadingCount++;
+    // beforeSend
+    cb && cb();
+};
+const closeLoading = () => {
+    loadingCount--;
+    if (!loadingCount) {
+        store.commit('setIsLoad', false);
+    }
+};
+
 const request = () => {
     const instance = axios.create();
 
     instance.interceptors.request.use(
         config => {
-            const { url, params, data, method, headers } = config;
+            const { url, params, data, method, headers, beforeSend } = config;
             if (!params) {
                 config.params = {};
             }
+            // beforeSend
+            openLoading(beforeSend);
             if (!url.includes('auth/users/login')) {
                 let token = {};
                 try {
@@ -50,7 +68,7 @@ const request = () => {
                 config.params.accessToken = accessToken;
                 config.headers = Object.assign({}, headers, { accessToken });
             }
-            // post数据
+            // post数据config.data
             if (data && isPlainObject(data) && ['post', 'put'].includes(method)) {
                 config.data = qs.stringify(data);
                 if (!headers) {
@@ -60,7 +78,10 @@ const request = () => {
             }
             return config;
         },
-        error => Promise.reject(error)
+        error => {
+            closeLoading();
+            Promise.reject(error);
+        }
     );
 
     instance.interceptors.response.use(
@@ -70,6 +91,7 @@ const request = () => {
             //   Message.error(resultMessage);
             //   return Promise.reject(new Error(resultMessage));
             // }
+            closeLoading();
             return response.data;
         },
         error => {
@@ -81,13 +103,12 @@ const request = () => {
                 } else if (typeof data === 'object') {
                     message = data.message;
                 }
-                // message.indexOf('exist') === -1 && Message.error(message);
                 if ([401, 403].includes(status) && ['unknown user!', 'token invalid!', 'token expired!'].includes(message)) {
                     goLogin();
                 }
                 return Promise.reject(error.response);
             }
-            // Message.error(API_GENERAL_ERROR_MESSAGE);
+            closeLoading();
             console.log(API_GENERAL_ERROR_MESSAGE);
             return Promise.reject(error);
         }

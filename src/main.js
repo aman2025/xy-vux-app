@@ -2,6 +2,9 @@ import Vue from 'vue';
 import App from './App';
 import router from '@/router';
 import store from '@/store';
+import { Loading } from 'vux';
+
+// 全局样式
 import './style/index.scss';
 //第三方组件引入开始
 
@@ -13,6 +16,7 @@ FastClick.attach(document.body);
 //第三方组件引入结束
 
 Vue.config.productionTip = false;
+Vue.component('loading', Loading);
 
 new Vue({
     el: '#app',
