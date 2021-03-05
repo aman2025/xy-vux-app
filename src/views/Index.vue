@@ -193,8 +193,8 @@ export default {
     },
     methods: {
         changeTab(i) {
-            // 当前选择的tab
-            this.$store.state.tabActiveIndex = i;
+            // 当前选择的tab, 修改store中的值,并传递参数
+            this.$store.commit('setTabActiveIndex', i);
         }
     }
 };

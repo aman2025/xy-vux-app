@@ -149,7 +149,8 @@ export default {
             } else {
                 this.activeId = id;
             }
-            this.$store.state.menuActiveId = id;
+            // 修改全局state，当前选中的菜单
+            this.$store.commit('setMenuActiveId', id);
         }
     }
 };
