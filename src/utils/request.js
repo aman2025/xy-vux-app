@@ -56,18 +56,19 @@ const request = () => {
             }
             // beforeSend
             openLoading(beforeSend);
-            if (!url.includes('auth/users/login')) {
-                let token = {};
-                try {
-                    token = JSON.parse(localStorage.token);
-                } catch (e) {
-                    console.log(e);
-                    goLogin();
-                }
-                const { accessToken = '' } = token;
-                config.params.accessToken = accessToken;
-                config.headers = Object.assign({}, headers, { accessToken });
-            }
+            // 无需token访问
+            // if (!url.includes('auth/users/login')) { 
+            //     let token = {};
+            //     try {
+            //         token = JSON.parse(localStorage.token);
+            //     } catch (e) {
+            //         console.log(e);
+            //         goLogin();
+            //     }
+            //     const { accessToken = '' } = token;
+            //     config.params.accessToken = accessToken;
+            //     config.headers = Object.assign({}, headers, { accessToken });
+            // }
             // post数据config.data
             if (data && isPlainObject(data) && ['post', 'put'].includes(method)) {
                 config.data = qs.stringify(data);
