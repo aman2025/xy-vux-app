@@ -6,7 +6,7 @@
                 <div class="sub-menu">
                     <div class="sub-menu-item" v-for="(item, index) in singleSwiperData" :key="index" @click="goto(item.path)">
                         <i :class="item.icon"></i>
-                        <span>{{ item.name }}</span>
+                        <span>{{ item.moduleName }}</span>
                     </div>
                 </div>
             </swiper-item>

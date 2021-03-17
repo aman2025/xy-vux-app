@@ -4,16 +4,16 @@
             <div class="menu-my" :class="{ 'menu-selected': activeId == '999' }" @click="changeMenu('999')">我的</div>
             <div class="menu-container">
                 <div class="menu-list">
-                    <div class="menu-item" :class="{ 'menu-selected': item.id == activeId }" @click="changeMenu(item.id)" v-for="item in menus" :key="item.id">{{ item.level1 }}</div>
+                    <div class="menu-item" :class="{ 'menu-selected': item.moduleCode == activeId }" @click="changeMenu(item.moduleCode)" v-for="item in menus" :key="item.moduleCode">{{ item.moduleName }}</div>
                 </div>
             </div>
         </div>
         <div class="menu-content shadow-bottom">
-            <div v-for="item in menus" :key="item.id" v-show="activeId == item.id">
-                <SubMenu :subMenuData="subMenuData.level2" />
+            <div v-for="item in menus" :key="item.moduleCode" v-show="activeId == item.moduleCode">
+                <SubMenu :subMenuData="subMenuData.children" />
             </div>
             <div v-show="activeId == '999'">
-                <SubMenu :subMenuData="subMenuData.level2" menuType="my" />
+                <SubMenu :subMenuData="subMenuData.children" menuType="my" />
             </div>
         </div>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import SubMenu from '../components/SubMenu';
+import request from '../utils/request';
 
 export default {
     components: {
@@ -29,106 +30,24 @@ export default {
     props: [],
     data() {
         return {
-            menus: [
-                {
-                    id: '1',
-                    level1: '菜单名称01',
-                    level2: [
-                        { icon: 'item01', name: '01功能01', path: '/temp' },
-                        { icon: 'item01', name: '01功能02', path: '/temp' },
-                        { icon: 'item01', name: '01功能03', path: '/temp' },
-                        { icon: 'item01', name: '01功能04', path: '/temp' },
-                        { icon: 'item01', name: '01功能05', path: '/temp' },
-                        { icon: 'item01', name: '01功能06', path: '/temp' },
-                        { icon: 'item01', name: '01功能07', path: '/temp' },
-                        { icon: 'item01', name: '01功能08', path: '/temp' },
-                        { icon: 'item01', name: '01功能09', path: '/temp' },
-                        { icon: 'item01', name: '01功能10', path: '/temp' },
-                        { icon: 'item01', name: '01功能11', path: '/temp' },
-                        { icon: 'item01', name: '01功能12', path: '/temp' },
-                        { icon: 'item01', name: '01功能13', path: '/temp' }
-                    ]
-                },
-                {
-                    id: '2',
-                    level1: '菜单名称02',
-                    level2: [
-                        { icon: 'item01', name: '02功能01', path: '/temp' },
-                        { icon: 'item01', name: '02功能02', path: '/temp' },
-                        { icon: 'item01', name: '02功能03', path: '/temp' },
-                        { icon: 'item01', name: '02功能04', path: '/temp' },
-                        { icon: 'item01', name: '02功能05', path: '/temp' },
-                        { icon: 'item01', name: '02功能06', path: '/temp' },
-                        { icon: 'item01', name: '02功能07', path: '/temp' },
-                        { icon: 'item01', name: '02功能08', path: '/temp' },
-                        { icon: 'item01', name: '02功能09', path: '/temp' },
-                        { icon: 'item01', name: '02功能10', path: '/temp' },
-                        { icon: 'item01', name: '02功能11', path: '/temp' },
-                        { icon: 'item01', name: '02功能12', path: '/temp' },
-                        { icon: 'item01', name: '02功能13', path: '/temp' },
-                        { icon: 'item01', name: '02功能14', path: '/temp' },
-                        { icon: 'item01', name: '02功能15', path: '/temp' }
-                    ]
-                },
-                {
-                    id: '3',
-                    level1: '菜单名称03',
-                    level2: [
-                        { icon: 'item01', name: '03功能01', path: '/temp' },
-                        { icon: 'item01', name: '03功能02', path: '/temp' },
-                        { icon: 'item01', name: '03功能03', path: '/temp' },
-                        { icon: 'item01', name: '03功能04', path: '/temp' },
-                        { icon: 'item01', name: '03功能05', path: '/temp' }
-                    ]
-                },
-                {
-                    id: '4',
-                    level1: '菜单名称04',
-                    level2: [
-                        { icon: 'item01', name: '04功能01', path: '/temp' },
-                        { icon: 'item01', name: '04功能02', path: '/temp' },
-                        { icon: 'item01', name: '04功能03', path: '/temp' },
-                        { icon: 'item01', name: '04功能04', path: '/temp' },
-                        { icon: 'item01', name: '04功能06', path: '/temp' },
-                        { icon: 'item01', name: '04功能06', path: '/temp' }
-                    ]
-                },
-                {
-                    id: '5',
-                    level1: '菜单名称05',
-                    level2: [
-                        { icon: 'item01', name: '05功能01', path: '/temp' },
-                        { icon: 'item01', name: '05功能02', path: '/temp' },
-                        { icon: 'item01', name: '05功能03', path: '/temp' },
-                        { icon: 'item01', name: '05功能04', path: '/temp' },
-                        { icon: 'item01', name: '05功能05', path: '/temp' },
-                        { icon: 'item01', name: '05功能06', path: '/temp' },
-                        { icon: 'item01', name: '05功能07', path: '/temp' },
-                        { icon: 'item01', name: '05功能08', path: '/temp' }
-                    ]
-                },
-                {
-                    id: '6',
-                    level1: '菜单名称06',
-                    level2: [
-                        { icon: 'item01', name: '06功能01', path: '/temp' },
-                        { icon: 'item01', name: '06功能02', path: '/temp' },
-                        { icon: 'item01', name: '06功能03', path: '/temp' },
-                        { icon: 'item01', name: '06功能04', path: '/temp' },
-                        { icon: 'item01', name: '06功能06', path: '/temp' },
-                        { icon: 'item01', name: '06功能06', path: '/temp' }
-                    ]
-                }
-            ],
+            menus: [],
             activeId: this.$store.state.menuActiveId,
             myMenus: {
-                level2: [
-                    { icon: 'item01', name: '我的功能01', path: '/temp' },
-                    { icon: 'item01', name: '我的功能02', path: '/temp' },
-                    { icon: 'item100', name: '全部', path: './manageApp' }
+                children: [
+                  {
+                    "moduleCode": "func01",
+                    "moduleName": "功能名称01",
+                    "parentModuleCode": "menu01",
+                    "homeUrl": "/mobile-page/func01.html",
+                    "iconUrl": "/mobile-page/func01.ico"
+                  }
                 ]
             }
         };
+    },
+    mounted(){
+      // 获取菜单
+      this.getMenu();
     },
     computed: {
         subMenuData: function () {
@@ -137,20 +56,62 @@ export default {
                 return this.myMenus;
             } else {
                 return this.menus.find(function (m) {
-                    return m.id == _this.activeId;
+                    return m.moduleCode == _this.activeId;
                 });
             }
         }
     },
     methods: {
-        changeMenu(id) {
-            if (id == '999') {
+        changeMenu(code) {
+            if (code == '999') {
                 this.activeId = '999';
             } else {
-                this.activeId = id;
+                this.activeId = code;
             }
             // 修改全局state，当前选中的菜单
-            this.$store.commit('setMenuActiveId', id);
+            this.$store.commit('setMenuActiveId', code);
+        },
+        // 获取菜单
+        getMenu() {
+            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-authorized-modules';
+            const data = {
+                appName: 'bms'
+            };
+            const requestMenu = (data) => request.post(url, data);
+            requestMenu(data)
+                .then((res) => {
+                  // console.log(this.formatTreeData(res.result));
+                  this.menus = this.formatTreeData(res.result)
+                })
+                .catch(() => {});
+        },
+        // 转成树形机构
+        formatTreeData(list) {
+          var i,
+              l,
+              key = 'moduleCode',
+              parentKey = 'parentModuleCode';
+          if (!key || key == '' || !list) return [];
+          if (Array.isArray(list)) {
+              var r = [];
+              var tmpMap = {};
+              for (i = 0, l = list.length; i < l; i++) {
+                  tmpMap[list[i][key]] = list[i]; // 引用值修改
+              }
+              for (i = 0, l = list.length; i < l; i++) {
+                  if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
+                      if (!tmpMap[list[i][parentKey]].children) {
+                          tmpMap[list[i][parentKey]].children = [];
+                      }
+                      tmpMap[list[i][parentKey]].children.push(list[i]);
+                  } else {
+                      r.push(list[i]);
+                  }
+              }
+              return r;
+          } else {
+              return [list];
+          }
         }
     }
 };
