@@ -75,7 +75,7 @@ const request = () => {
                 if (!headers) {
                     config.headers = {};
                 }
-                config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
             }
             return config;
         },
