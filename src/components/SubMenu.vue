@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'my-swiper': menuType == 'my' }">
+    <div>
         <!-- sub-menu -->
         <swiper v-model="swiperItemIndex" dots-position="center" :show-dots="swiperItemTotal != 1">
             <swiper-item v-for="(item, i) in swiperItemTotal" :key="i">
@@ -31,13 +31,17 @@ export default {
     },
     computed: {
         swiperItemTotal: function () {
-            // 根据二级菜单数据计算swiperItem个数
-            return Math.ceil(this.subMenuData.length / this.number);
+            // 根据二级菜单数据计算swiperItem个数, this.subMenuData 异步获取, 默认空数组
+            if (this.subMenuData.length) {
+                return Math.ceil(this.subMenuData.length / this.number);
+            }
         },
         singleSwiperData: function () {
             // 计算当前swiperItem中的数据个数
             const swiperIndex = this.swiperItemIndex;
-            return this.subMenuData.slice(swiperIndex * this.number, (swiperIndex + 1) * this.number);
+            if (this.subMenuData.length) {
+                return this.subMenuData.slice(swiperIndex * this.number, (swiperIndex + 1) * this.number);
+            }
         }
     },
     methods: {

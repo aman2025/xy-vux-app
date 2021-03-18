@@ -1,7 +1,7 @@
 <template>
     <div class="menu">
         <div class="menu-box">
-            <div class="menu-my" :class="{ 'menu-selected': activeId == '999' }" @click="changeMenu('999')">我的</div>
+            <div class="menu-my" :class="{ 'menu-selected': activeId == '999' }" @click="changeMenu('999')">{{ myMenuName }}</div>
             <div class="menu-container">
                 <div class="menu-list">
                     <div class="menu-item" :class="{ 'menu-selected': item.moduleCode == activeId }" @click="changeMenu(item.moduleCode)" v-for="item in menus" :key="item.moduleCode">{{ item.moduleName }}</div>
@@ -10,10 +10,10 @@
         </div>
         <div class="menu-content shadow-bottom">
             <div v-for="item in menus" :key="item.moduleCode" v-show="activeId == item.moduleCode">
-                <SubMenu :subMenuData="subMenuData.children" />
+                <SubMenu :subMenuData="subMenuData" />
             </div>
             <div v-show="activeId == '999'">
-                <SubMenu :subMenuData="subMenuData.children" menuType="my" />
+                <MyMenu :myMenuData="myMenuData" />
             </div>
         </div>
     </div>
@@ -21,44 +21,42 @@
 
 <script>
 import SubMenu from '../components/SubMenu';
+import MyMenu from '../components/MyMenu';
 import request from '../utils/request';
 
 export default {
     components: {
-        SubMenu
+        SubMenu,
+        MyMenu
     },
     props: [],
     data() {
         return {
             menus: [],
             activeId: this.$store.state.menuActiveId,
-            myMenus: {
-                children: [
-                  {
-                    "moduleCode": "func01",
-                    "moduleName": "功能名称01",
-                    "parentModuleCode": "menu01",
-                    "homeUrl": "/mobile-page/func01.html",
-                    "iconUrl": "/mobile-page/func01.ico"
-                  }
-                ]
-            }
+            myMenuData: [
+                {
+                    moduleCode: 'func01-m',
+                    moduleName: '功能名称01-m',
+                    parentModuleCode: 'myMenu',
+                    homeUrl: '/mobile-page/func01-m.html',
+                    iconUrl: '/mobile-page/func01-m.ico'
+                }
+            ],
+            myMenuName: '我的'
         };
     },
-    mounted(){
-      // 获取菜单
-      this.getMenu();
+    mounted() {
+        // 获取菜单
+        this.getMenu();
     },
     computed: {
         subMenuData: function () {
             const _this = this;
-            if (this.activeId == '999') {
-                return this.myMenus;
-            } else {
-                return this.menus.find(function (m) {
-                    return m.moduleCode == _this.activeId;
-                });
-            }
+            var curMenus = this.menus.find(function (m) {
+                return m.moduleCode == _this.activeId;
+            });
+            return (curMenus && curMenus.children) || [];
         }
     },
     methods: {
@@ -80,38 +78,38 @@ export default {
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)
                 .then((res) => {
-                  // console.log(this.formatTreeData(res.result));
-                  this.menus = this.formatTreeData(res.result)
+                    console.log(3);
+                    this.menus = this.formatTreeData(res.result);
                 })
                 .catch(() => {});
         },
         // 转成树形机构
         formatTreeData(list) {
-          var i,
-              l,
-              key = 'moduleCode',
-              parentKey = 'parentModuleCode';
-          if (!key || key == '' || !list) return [];
-          if (Array.isArray(list)) {
-              var r = [];
-              var tmpMap = {};
-              for (i = 0, l = list.length; i < l; i++) {
-                  tmpMap[list[i][key]] = list[i]; // 引用值修改
-              }
-              for (i = 0, l = list.length; i < l; i++) {
-                  if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
-                      if (!tmpMap[list[i][parentKey]].children) {
-                          tmpMap[list[i][parentKey]].children = [];
-                      }
-                      tmpMap[list[i][parentKey]].children.push(list[i]);
-                  } else {
-                      r.push(list[i]);
-                  }
-              }
-              return r;
-          } else {
-              return [list];
-          }
+            var i,
+                l,
+                key = 'moduleCode',
+                parentKey = 'parentModuleCode';
+            if (!key || key == '' || !list) return [];
+            if (Array.isArray(list)) {
+                var r = [];
+                var tmpMap = {};
+                for (i = 0, l = list.length; i < l; i++) {
+                    tmpMap[list[i][key]] = list[i]; // 引用值修改
+                }
+                for (i = 0, l = list.length; i < l; i++) {
+                    if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
+                        if (!tmpMap[list[i][parentKey]].children) {
+                            tmpMap[list[i][parentKey]].children = [];
+                        }
+                        tmpMap[list[i][parentKey]].children.push(list[i]);
+                    } else {
+                        r.push(list[i]);
+                    }
+                }
+                return r;
+            } else {
+                return [list];
+            }
         }
     }
 };
