@@ -2,9 +2,13 @@
     <div class="my-menu">
         <!-- my-menu -->
         <div class="sub-menu">
-            <div class="sub-menu-item" v-for="(item, index) in myMenuData" :key="index" @click="goto(item.homeUrl)">
+            <div class="sub-menu-item" v-for="(item, index) in myMenuData.slice(0, 7)" :key="item.moduleCode" @click="goto(item.homeUrl)">
                 <i></i>
                 <span>{{ item.moduleName }}</span>
+            </div>
+            <div class="sub-menu-item" @click="goto(allItem.homeUrl)">
+                <i></i>
+                <span>{{ allItem.moduleName }}</span>
             </div>
         </div>
         <!-- //my-menu -->
@@ -12,16 +16,48 @@
 </template>
 
 <script>
+import request from '../utils/request';
+import { formatTreeData } from '../utils/util';
+
 export default {
+    name: 'MyMenu',
     components: {},
-    props: ['myMenuData'],
+    props: [],
     data() {
-        return {};
+        return {
+            myMenuData: [], //children
+            allItem: {
+                moduleCode: 'funcAll',
+                moduleName: '全部',
+                homeUrl: '/mobile-page/func-all.html',
+                iconUrl: '/mobile-page/func-all.ico'
+            }
+        };
     },
     computed: {},
+    mounted() {
+        this.getMyMenu();
+    },
     methods: {
         goto(homeUrl) {
             this.$router.push(homeUrl);
+        },
+        // 获取我的菜单
+        getMyMenu() {
+            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-favorites';
+            const data = {
+                appName: 'bms'
+            };
+            const requestMyMenu = (data) => request.post(url, data);
+            requestMyMenu(data)
+                .then((res) => {
+                    const curMenu = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
+                    // 我的--只有一个父级
+                    if (curMenu.length && curMenu[0].children) {
+                        this.myMenuData = curMenu[0].children || [];
+                    }
+                })
+                .catch(() => {});
         }
     }
 };
@@ -57,6 +93,6 @@ export default {
     background-image: url(../assets/icon-all.png);
 }
 .my-menu {
-    height: 10rem !important;
+    height: 18rem !important;
 }
 </style>

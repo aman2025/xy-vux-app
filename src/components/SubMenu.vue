@@ -18,6 +18,7 @@
 <script>
 import { Swiper, SwiperItem } from 'vux';
 export default {
+    name: 'SubMenu',
     components: {
         Swiper,
         SwiperItem

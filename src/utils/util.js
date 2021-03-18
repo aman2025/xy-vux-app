@@ -49,8 +49,8 @@ export const generateUrl = (url, params) => {
         url,
         '?',
         Object.keys(params)
-      .map(key => [key, params[key]].join('='))
-      .join('&')
+            .map(key => [key, params[key]].join('='))
+            .join('&')
     ].join('');
 };
 
@@ -59,3 +59,32 @@ export const isPlainObject = obj => {
 };
 
 export const isFunction = val => val && Object.prototype.toString.call(val) === '[object Function]';
+
+// 转成树形结构
+export const formatTreeData = (list, key, parentKey) => {
+    var i,
+        l,
+        key = key,
+        parentKey = parentKey;
+    if (!key || key == '' || !list) return [];
+    if (Array.isArray(list)) {
+        var r = [];
+        var tmpMap = {};
+        for (i = 0, l = list.length; i < l; i++) {
+            tmpMap[list[i][key]] = list[i]; // 引用值修改
+        }
+        for (i = 0, l = list.length; i < l; i++) {
+            if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
+                if (!tmpMap[list[i][parentKey]].children) {
+                    tmpMap[list[i][parentKey]].children = [];
+                }
+                tmpMap[list[i][parentKey]].children.push(list[i]);
+            } else {
+                r.push(list[i]);
+            }
+        }
+        return r;
+    } else {
+        return [list];
+    }
+};

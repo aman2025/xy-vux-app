@@ -13,7 +13,7 @@
                 <SubMenu :subMenuData="subMenuData" />
             </div>
             <div v-show="activeId == '999'">
-                <MyMenu :myMenuData="myMenuData" />
+                <MyMenu />
             </div>
         </div>
     </div>
@@ -23,8 +23,10 @@
 import SubMenu from '../components/SubMenu';
 import MyMenu from '../components/MyMenu';
 import request from '../utils/request';
+import { formatTreeData } from '../utils/util';
 
 export default {
+    name: 'MenuBox',
     components: {
         SubMenu,
         MyMenu
@@ -34,15 +36,6 @@ export default {
         return {
             menus: [],
             activeId: this.$store.state.menuActiveId,
-            myMenuData: [
-                {
-                    moduleCode: 'func01-m',
-                    moduleName: '功能名称01-m',
-                    parentModuleCode: 'myMenu',
-                    homeUrl: '/mobile-page/func01-m.html',
-                    iconUrl: '/mobile-page/func01-m.ico'
-                }
-            ],
             myMenuName: '我的'
         };
     },
@@ -53,10 +46,10 @@ export default {
     computed: {
         subMenuData: function () {
             const _this = this;
-            var curMenus = this.menus.find(function (m) {
+            var curMenu = this.menus.find(function (m) {
                 return m.moduleCode == _this.activeId;
             });
-            return (curMenus && curMenus.children) || [];
+            return (curMenu && curMenu.children) || [];
         }
     },
     methods: {
@@ -78,38 +71,9 @@ export default {
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)
                 .then((res) => {
-                    console.log(3);
-                    this.menus = this.formatTreeData(res.result);
+                    this.menus = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
                 })
                 .catch(() => {});
-        },
-        // 转成树形机构
-        formatTreeData(list) {
-            var i,
-                l,
-                key = 'moduleCode',
-                parentKey = 'parentModuleCode';
-            if (!key || key == '' || !list) return [];
-            if (Array.isArray(list)) {
-                var r = [];
-                var tmpMap = {};
-                for (i = 0, l = list.length; i < l; i++) {
-                    tmpMap[list[i][key]] = list[i]; // 引用值修改
-                }
-                for (i = 0, l = list.length; i < l; i++) {
-                    if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
-                        if (!tmpMap[list[i][parentKey]].children) {
-                            tmpMap[list[i][parentKey]].children = [];
-                        }
-                        tmpMap[list[i][parentKey]].children.push(list[i]);
-                    } else {
-                        r.push(list[i]);
-                    }
-                }
-                return r;
-            } else {
-                return [list];
-            }
         }
     }
 };
