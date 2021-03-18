@@ -45,17 +45,15 @@ export default {
     watch: {
         exChangeData: function (newVal, oldVal) {
             const { data, type } = newVal;
-            const curModuleCode = data.parentModuleCode;
-            if (data.parentModuleCode) {
-                if (type == 'add') {
-                    this.myMenuData.children.push(data);
-                } else {
-                    this.removeData(this.myMenuData.children, curModuleCode);
-                }
-            }
+            const curModuleCode = data.moduleCode;
+            const curMenu = this.allMenuData.find((o) => o.moduleCode == data.parentModuleCode);
 
-            // let curMenu = this.allMenuData.find((o) => o.moduleCode == curModuleCode);
-            // curMenu && this.removeData(curMenu.children, curModuleCode);
+            if (type == 'add') {
+                this.myMenuData.children.push(data); // 我的应用
+                curMenu && this.removeData(curMenu.children, curModuleCode);
+            } else {
+                this.removeData(this.myMenuData.children, curModuleCode); // 我的应用
+            }
         }
     },
     methods: {
@@ -95,7 +93,7 @@ export default {
         },
         removeData(data, code) {
             data.splice(
-                data.findIndex((o) => o.parentModuleCode == code),
+                data.findIndex((o) => o.moduleCode == code),
                 1
             );
         }
