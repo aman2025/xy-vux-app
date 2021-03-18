@@ -4,10 +4,10 @@
             <h3 v-show="title">{{ title }}</h3>
             <div>
                 <ul>
-                    <li v-for="(item, index) in apps" :key="index">
+                    <li v-for="item in apps" :key="item.moduleCode">
                         <i></i>
-                        <span>{{ item.name }}</span>
-                        <em :class="{ 'icon-delete': selected }"></em>
+                        <span>{{ item.moduleName }}</span>
+                        <em :class="extype == 'del' ? 'icon-delete' : 'icon-add'" @click="exChange(extype, item.moduleCode)"></em>
                     </li>
                 </ul>
             </div>
@@ -18,11 +18,19 @@
 <script>
 export default {
     components: {},
-    props: ['apps', 'title', 'selected'],
+    props: ['apps', 'title', 'extype'],
     data() {
         return {};
     },
-    methods: {}
+    methods: {
+        exChange(type, code) {
+            let exData = {};
+            const curData = this.apps.find((o) => o.moduleCode == code);
+            exData['data'] = curData;
+            exData['type'] = type;
+            this.$emit('input', exData);
+        }
+    }
 };
 </script>
 <style lang="scss">

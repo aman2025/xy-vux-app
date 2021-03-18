@@ -2,7 +2,7 @@
     <div class="my-menu">
         <!-- my-menu -->
         <div class="sub-menu">
-            <div class="sub-menu-item" v-for="(item, index) in myMenuData.slice(0, 7)" :key="item.moduleCode" @click="goto(item.homeUrl)">
+            <div class="sub-menu-item" v-for="item in myMenuData.slice(0, 7)" :key="item.moduleCode" @click="goto(item.homeUrl)">
                 <i></i>
                 <span>{{ item.moduleName }}</span>
             </div>
@@ -29,7 +29,7 @@ export default {
             allItem: {
                 moduleCode: 'funcAll',
                 moduleName: '全部',
-                homeUrl: '/mobile-page/func-all.html',
+                homeUrl: '/ManageApp',
                 iconUrl: '/mobile-page/func-all.ico'
             }
         };
