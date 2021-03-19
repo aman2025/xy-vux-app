@@ -22,13 +22,20 @@ export default {
     data() {
         return {};
     },
+    watch: {
+        apps: function (newVal) {
+            if (newVal.length == 0) {
+                this.$emit('changeTitle'); //触发父组件事件
+            }
+        }
+    },
     methods: {
         exChange(type, code) {
             let exData = {};
             const curData = this.apps.find((o) => o.moduleCode == code);
             exData['data'] = curData;
             exData['type'] = type;
-            this.$emit('input', exData);
+            this.$emit('input', exData); // v-model
         }
     }
 };
