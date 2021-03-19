@@ -4,10 +4,11 @@
             <h3 v-show="title">{{ title }}</h3>
             <div>
                 <ul>
-                    <li v-for="item in apps" :key="item.moduleCode">
+                    <li v-for="item in apps" :key="item.moduleCode" :class="{ limove: item.selected && extype == 'add' }">
+                        {{ item.selected }}
                         <i></i>
                         <span>{{ item.moduleName }}</span>
-                        <em :class="extype == 'del' ? 'icon-delete' : 'icon-add'" @click="exChange(extype, item.moduleCode)"></em>
+                        <em :class="extype == 'del' ? 'icon-delete' : 'icon-add'" @click="exChange(extype, item.moduleCode, item.selected)"></em>
                     </li>
                 </ul>
             </div>
@@ -30,12 +31,14 @@ export default {
         }
     },
     methods: {
-        exChange(type, code) {
+        exChange(type, code, selected) {
             let exData = {};
             const curData = this.apps.find((o) => o.moduleCode == code);
             exData['data'] = curData;
             exData['type'] = type;
-            this.$emit('input', exData); // v-model
+            exData['selected'] = selected;
+            console.log(selected);
+            this.$emit('input', exData); // 修改v-model
         }
     }
 };
@@ -97,5 +100,10 @@ export default {
 }
 .app-list ul li span {
     padding: 0.2rem 0 0;
+}
+.limove {
+    position: fixed !important;
+    top: -999px !important;
+    left: 0 !important;
 }
 </style>

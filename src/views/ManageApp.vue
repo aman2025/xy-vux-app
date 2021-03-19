@@ -42,24 +42,37 @@ export default {
     },
     watch: {
         exChangeData: function (newVal, oldVal) {
-            const { data, type } = newVal;
+            const { data, type, selected } = newVal;
             const curModuleCode = data.moduleCode;
             // const curMenu = this.allMenuData.find((o) => o.moduleCode == data.parentModuleCode);
             // todo: this.allMenuData 已经没有了 收藏过的对象，所以找不到
-            const curMenu = this.allMenuData.filter((item) => {
+            const curMenu = this.allMenuData.find((item) => {
                 return item.children.find((o) => {
-                    console.log(o.moduleCode); //
                     return o.moduleCode == curModuleCode;
                 });
             });
-            console.log(curMenu);
 
             if (type == 'add') {
                 this.myMenuData.children.push(data); // 我的应用
-                curMenu && this.removeData(curMenu.children, curModuleCode);
+                // curMenu && this.removeData(curMenu.children, curModuleCode);
             } else {
                 this.removeData(this.myMenuData.children, curModuleCode); // 我的应用
-                curMenu && curMenu.children.push(data);
+                let childrenArr = (curMenu && curMenu.children) || { children: [] };
+                childrenArr.forEach((item) => {
+                    if (item.moduleCode == curModuleCode) {
+                        item.selected = false;
+                        item.homeUrl = 'aa'; // todo: 为什么只有修改moduleName才触发监听, 父子组件传值
+                    }
+                });
+                // console.log(this.allMenuData);
+                // this.allMenuData.forEach((item) => {
+                //     item.children.forEach((o) => {
+                //         if (o.moduleCode == 'm0001') {
+                //             console.log(o);
+                //             o.selected = false;
+                //         }
+                //     });
+                // });
             }
         }
     },
@@ -81,6 +94,9 @@ export default {
                     if (curMenu && curMenu.children) {
                         this.myMenuData = curMenu;
                     }
+                    this.myMenuData.children.forEach((item) => {
+                        item['selected'] = true;
+                    });
                 })
                 .then(() => {
                     this.getAllMenu(this.myMenuData.children);
@@ -96,15 +112,17 @@ export default {
             requestAllMenu(data).then((res) => {
                 this.allMenuData = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
                 // 根据moduleCode过滤已收藏的
-                // console.log(this.allMenuData);
-                // console.log(favritesData);
+                const selectedMenu = [];
                 favritesData.forEach((item) => {
-                    var mcode = item.moduleCode;
-                    this.allMenuData.forEach((o) => {
-                        var arr = o.children;
-                        var idx = arr.findIndex((obj) => obj.moduleCode === mcode);
-                        if (idx !== -1) {
-                            arr.splice(idx, 1);
+                    selectedMenu.push(item.moduleCode);
+                });
+                this.allMenuData.forEach((item) => {
+                    item.children.forEach((obj) => {
+                        const code = obj.moduleCode;
+                        if (selectedMenu.indexOf(code) != -1) {
+                            obj['selected'] = true;
+                        } else {
+                            obj['selected'] = false;
                         }
                     });
                 });
