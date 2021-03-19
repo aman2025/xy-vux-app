@@ -20,6 +20,7 @@ import { Divider } from 'vux';
 import XHeader from '../components/XHeader';
 import AppList from '../components/AppList';
 import request from '../utils/request';
+import _ from 'lodash';
 import { formatTreeData } from '../utils/util';
 export default {
     name: 'Index',
@@ -33,6 +34,7 @@ export default {
             title: '管理我的应用',
             myMenuData: { children: [] }, //我的二级菜单
             allMenuData: [],
+            originMenuData: [],
             exChangeData: {}, // 合并es6扩展
             leftOptions: { showBack: false }
         };
@@ -46,7 +48,8 @@ export default {
             const curModuleCode = data.moduleCode;
             // const curMenu = this.allMenuData.find((o) => o.moduleCode == data.parentModuleCode);
             // todo: this.allMenuData 已经没有了 收藏过的对象，所以找不到
-            const curMenu = this.allMenuData.find((item) => {
+            const curIndex = _.findIndex(this.originMenuData, (item) => {
+                // item.moduleCode
                 return item.children.find((o) => {
                     return o.moduleCode == curModuleCode;
                 });
@@ -55,24 +58,13 @@ export default {
             if (type == 'add') {
                 this.myMenuData.children.push(data); // 我的应用
                 // curMenu && this.removeData(curMenu.children, curModuleCode);
+                _.remove(this.allMenuData[curIndex].children, (item) => {
+                    console.log(item.moduleCode == curModuleCode);
+                    return item.moduleCode == curModuleCode;
+                });
             } else {
                 this.removeData(this.myMenuData.children, curModuleCode); // 我的应用
-                let childrenArr = (curMenu && curMenu.children) || { children: [] };
-                childrenArr.forEach((item) => {
-                    if (item.moduleCode == curModuleCode) {
-                        item.selected = false;
-                        item.homeUrl = 'aa'; // todo: 为什么只有修改moduleName才触发监听, 父子组件传值
-                    }
-                });
-                // console.log(this.allMenuData);
-                // this.allMenuData.forEach((item) => {
-                //     item.children.forEach((o) => {
-                //         if (o.moduleCode == 'm0001') {
-                //             console.log(o);
-                //             o.selected = false;
-                //         }
-                //     });
-                // });
+                this.allMenuData[curIndex].children.push(data);
             }
         }
     },
@@ -94,9 +86,6 @@ export default {
                     if (curMenu && curMenu.children) {
                         this.myMenuData = curMenu;
                     }
-                    this.myMenuData.children.forEach((item) => {
-                        item['selected'] = true;
-                    });
                 })
                 .then(() => {
                     this.getAllMenu(this.myMenuData.children);
@@ -111,18 +100,15 @@ export default {
             const requestAllMenu = (data) => request.post(url, data);
             requestAllMenu(data).then((res) => {
                 this.allMenuData = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
+                this.originMenuData = _.cloneDeep(this.allMenuData);
                 // 根据moduleCode过滤已收藏的
-                const selectedMenu = [];
                 favritesData.forEach((item) => {
-                    selectedMenu.push(item.moduleCode);
-                });
-                this.allMenuData.forEach((item) => {
-                    item.children.forEach((obj) => {
-                        const code = obj.moduleCode;
-                        if (selectedMenu.indexOf(code) != -1) {
-                            obj['selected'] = true;
-                        } else {
-                            obj['selected'] = false;
+                    var mcode = item.moduleCode;
+                    this.allMenuData.forEach((o) => {
+                        var arr = o.children;
+                        var idx = arr.findIndex((obj) => obj.moduleCode === mcode);
+                        if (idx !== -1) {
+                            arr.splice(idx, 1);
                         }
                     });
                 });
