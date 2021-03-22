@@ -46,8 +46,7 @@ export default {
         exChangeData: function (newVal, oldVal) {
             const { data, type, selected } = newVal;
             const curModuleCode = data.moduleCode;
-            // const curMenu = this.allMenuData.find((o) => o.moduleCode == data.parentModuleCode);
-            // todo: this.allMenuData 已经没有了 收藏过的对象，所以找不到
+            // todo： 测试数据为空情况，有没有报错
             const curIndex = _.findIndex(this.originMenuData, (item) => {
                 // item.moduleCode
                 return item.children.find((o) => {
@@ -57,11 +56,8 @@ export default {
 
             if (type == 'add') {
                 this.myMenuData.children.push(data); // 我的应用
-                // curMenu && this.removeData(curMenu.children, curModuleCode);
-                _.remove(this.allMenuData[curIndex].children, (item) => {
-                    console.log(item.moduleCode == curModuleCode);
-                    return item.moduleCode == curModuleCode;
-                });
+                const curAllMenu = this.allMenuData[curIndex];
+                curAllMenu && this.removeData(curAllMenu.children, curModuleCode);
             } else {
                 this.removeData(this.myMenuData.children, curModuleCode); // 我的应用
                 this.allMenuData[curIndex].children.push(data);
