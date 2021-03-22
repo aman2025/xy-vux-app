@@ -1,17 +1,17 @@
 <template>
     <div>
         <div class="notice-container">
-            <div v-for="item in noticeData" :key="item.id" class="notice-item" :class="{ 'notice-item-category': item.category == '2', readed: item.readed }" @click="linkto(item.path)">
+            <div v-for="(item, index) in contentData.rows" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
                 <div class="notice-item-title">
-                    <i :class="{ 'icon-warn': item.isWarn }"></i>
+                    <i :class="{ 'icon-warn': item.level }"></i>
                     <span>{{ item.title }}</span>
-                    <div v-show="item.number" class="notice-item-title-num">
-                        ( <em>{{ item.number }}</em> )
+                    <div v-show="item.badge" class="notice-item-title-num">
+                        ( <em>{{ item.badge }}</em> )
                     </div>
                 </div>
                 <div class="notice-item-content">
                     <div class="notice-item-content-left">
-                        <span v-for="(t, i) in item.tabs" :key="i" class="notice-item-tab" :class="{ tabColor02: t.type == 2 }">{{ t.text }}</span>
+                        <span v-for="(text, i) in item.tags" :key="i" class="notice-item-tag">{{ text }}</span>
                     </div>
                     <div class="notice-item-content-right">{{ item.time }}</div>
                 </div>
@@ -21,15 +21,36 @@
 </template>
 
 <script>
+import request from '../utils/request';
+
 export default {
     components: {},
-    props: ['noticeData'],
+    props: ['contentUrl'],
     data() {
-        return {};
+        return {
+            contentData: { rows: [] }
+        };
+    },
+    mounted() {
+        this.getListOfTpl(this.contentUrl);
     },
     methods: {
         linkto(path) {
             path && this.$router.push(path);
+        },
+        // 门户模板是list数据
+        getListOfTpl(url) {
+            const data = {
+                pageNum: 1,
+                pageSize: 10
+            };
+            const requestTpl = (data) => request.post(url, data); // todo: mock环境用get，正式环境post
+            requestTpl(data)
+                .then((res) => {
+                    this.contentData = res.result;
+                    console.log(this.contentData);
+                })
+                .catch(() => {});
         }
     }
 };
@@ -97,7 +118,7 @@ export default {
     color: #999;
     font-size: 1.2rem;
 }
-.notice-container .notice-item .notice-item-tab {
+.notice-container .notice-item .notice-item-tag {
     height: 2.2rem;
     line-height: 2.2rem;
     border-radius: 1.1rem;
@@ -107,7 +128,7 @@ export default {
     font-size: 1.2rem;
     color: #3a90e2;
 }
-.notice-container .notice-item .notice-item-tab.tabColor02 {
+.notice-container .notice-item .notice-item-tag.tabColor02 {
     background-color: #fef6e9;
     color: #f5a92b;
 }

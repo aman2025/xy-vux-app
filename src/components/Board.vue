@@ -1,23 +1,12 @@
 <template>
     <div>
-        <div class="board">
-            <h3>分类一</h3>
+        <div class="board" v-for="item in contentData" :key="item.moduleCode">
+            <h3>{{ item.moduleName }}</h3>
             <div>
                 <ul>
-                    <li v-for="(item, index) in data01" :key="index" @click="linkto(item.path)">
+                    <li v-for="(obj, index) in item.children" :key="index" @click="linkto(obj.homeUrl)">
                         <i></i>
-                        <span>{{ item.title }}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="board">
-            <h3>分类二</h3>
-            <div>
-                <ul>
-                    <li v-for="(item, index) in data02" :key="index">
-                        <i></i>
-                        <span>{{ item.title }}</span>
+                        <span>{{ obj.moduleName }}</span>
                     </li>
                 </ul>
             </div>
@@ -26,28 +15,33 @@
 </template>
 
 <script>
+import request from '../utils/request';
+import { formatTreeData } from '../utils/util';
+
 export default {
     components: {},
-    props: {},
+    props: ['contentUrl'],
     data() {
         return {
-            data01: [
-                { title: '运营执行情况总览', path: './boardDetail' },
-                { title: '资金交收-证券', path: './boardDetail' },
-                { title: '存管业务监控', path: './boardDetail' },
-                { title: '清算业务监控', path: './boardDetail' }
-            ],
-            data02: [
-                { title: '监控名称01', path: './boardDetail' },
-                { title: '监控名称02', path: './boardDetail' },
-                { title: '监控名称03', path: './boardDetail' },
-                { title: '监控名称04', path: './boardDetail' }
-            ]
+            contentData: [{ children: [] }]
         };
+    },
+    mounted() {
+        // 获取菜单
+        this.getMenuOfTpl(this.contentUrl);
     },
     methods: {
         linkto(path) {
             path && this.$router.push(path);
+        },
+        // 门户模板是menu数据
+        getMenuOfTpl(url) {
+            const requestTpl = () => request.post(url);
+            requestTpl()
+                .then((res) => {
+                    this.contentData = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
+                })
+                .catch(() => {});
         }
     }
 };
