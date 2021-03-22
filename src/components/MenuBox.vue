@@ -64,7 +64,7 @@ export default {
         },
         // 获取菜单
         getMenu() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-authorized-modules';
+            const url = '/load-authorized-modules';
             const data = {
                 appName: 'bms'
             };

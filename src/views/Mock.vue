@@ -17,12 +17,12 @@ export default {
         };
     },
     mounted() {
-      this.getMenu();
+        this.getMenu();
     },
     methods: {
         // 菜单
         getMenu() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-authorized-modules';
+            const url = '/load-authorized-modules';
             const data = {
                 appName: 'bms'
             };
@@ -30,14 +30,14 @@ export default {
             requestMenu(data)
                 .then((res) => {
                     console.log(res.result);
-                    this.menus = this.formatTreeData(res.result)
+                    this.menus = this.formatTreeData(res.result);
                 })
                 .catch(() => {});
         },
 
         // 看板
         getBoard() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/mee/load-menus';
+            const url = '/mee/load-menus';
             const params = {
                 menuCode: 'board'
             };
@@ -52,31 +52,31 @@ export default {
         },
         // 转成树形机构
         formatTreeData(list) {
-          var i,
-              l,
-              key = 'moduleCode',
-              parentKey = 'parentModuleCode';
-          if (!key || key == '' || !list) return [];
-          if (Array.isArray(list)) {
-              var r = [];
-              var tmpMap = {};
-              for (i = 0, l = list.length; i < l; i++) {
-                  tmpMap[list[i][key]] = list[i]; // 引用值修改
-              }
-              for (i = 0, l = list.length; i < l; i++) {
-                  if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
-                      if (!tmpMap[list[i][parentKey]].children) {
-                          tmpMap[list[i][parentKey]].children = [];
-                      }
-                      tmpMap[list[i][parentKey]].children.push(list[i]);
-                  } else {
-                      r.push(list[i]);
-                  }
-              }
-              return r;
-          } else {
-              return [list];
-          }
+            var i,
+                l,
+                key = 'moduleCode',
+                parentKey = 'parentModuleCode';
+            if (!key || key == '' || !list) return [];
+            if (Array.isArray(list)) {
+                var r = [];
+                var tmpMap = {};
+                for (i = 0, l = list.length; i < l; i++) {
+                    tmpMap[list[i][key]] = list[i]; // 引用值修改
+                }
+                for (i = 0, l = list.length; i < l; i++) {
+                    if (tmpMap[list[i][parentKey]] && list[i][key] != list[i][parentKey]) {
+                        if (!tmpMap[list[i][parentKey]].children) {
+                            tmpMap[list[i][parentKey]].children = [];
+                        }
+                        tmpMap[list[i][parentKey]].children.push(list[i]);
+                    } else {
+                        r.push(list[i]);
+                    }
+                }
+                return r;
+            } else {
+                return [list];
+            }
         }
     }
 };

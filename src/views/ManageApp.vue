@@ -69,9 +69,9 @@ export default {
         }
     },
     methods: {
-        // 获取我的菜单
+        // 获取我的收藏夹
         getMyMenu() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-favorites';
+            const url = '/load-favorites';
             const data = {
                 appName: 'bms'
             };
@@ -93,7 +93,7 @@ export default {
         },
         // 获取所有菜单
         getAllMenu(favritesData) {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-authorized-modules';
+            const url = '/load-authorized-modules';
             const data = {
                 appName: 'bms'
             };
@@ -137,7 +137,7 @@ export default {
         },
         // post保存
         updateMyMenu() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/update-favorites';
+            const url = '/update-favorites';
             const data = {
                 appName: 'bms',
                 favorites: 'm0001' // todo：对接后用实际子菜单

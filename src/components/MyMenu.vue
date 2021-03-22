@@ -44,7 +44,7 @@ export default {
         },
         // 获取我的菜单
         getMyMenu() {
-            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/load-favorites';
+            const url = '/load-favorites';
             const data = {
                 appName: 'bms'
             };

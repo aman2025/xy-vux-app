@@ -11,10 +11,10 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'http://localhost:8848', //设置你调用的接口域名和端口号
+                target: 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/', //设置你调用的接口域名和端口号
                 changeOrigin: true, //是否跨域
                 pathRewrite: {
-                    '^/v1': '/nacos/v1'
+                    '^/': '/'
                 }
             }
         },
