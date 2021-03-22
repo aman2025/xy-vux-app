@@ -12,12 +12,13 @@
                 <AppList v-for="item in allMenuData" v-model="exChangeData" extype="add" :apps="item.children" :key="item.moduleCode" :title="item.moduleName" @changeTitle="item.moduleName = ''" />
             </div>
         </div>
+        <toast v-model="toastVisible" @on-hide="onHide">保存成功</toast>
     </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import { Divider, ConfirmPlugin } from 'vux';
+import { Divider, ConfirmPlugin, Toast } from 'vux';
 import XHeader from '../components/XHeader';
 import AppList from '../components/AppList';
 import request from '../utils/request';
@@ -31,7 +32,8 @@ export default {
         XHeader,
         Divider,
         AppList,
-        ConfirmPlugin
+        ConfirmPlugin,
+        Toast
     },
     data() {
         return {
@@ -40,7 +42,8 @@ export default {
             allMenuData: [],
             originMenuData: [],
             exChangeData: {}, // 合并es6扩展
-            leftOptions: { showBack: false }
+            leftOptions: { showBack: false },
+            toastVisible: false
         };
     },
     mounted() {
@@ -123,7 +126,6 @@ export default {
         },
         // 保存
         save() {
-            console.log('sss..');
             var _this = this;
             this.$vux.confirm.show({
                 title: '是否保存吗?',
@@ -145,9 +147,14 @@ export default {
             const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
             requestMyMenu(data).then((res) => {
                 if (res.retCode == 0) {
-                    alert('更新成功'); // 用toast，返回上一级
+                    // alert('更新成功'); // 用toast，返回上一级
+                    this.toastVisible = true;
                 }
             });
+        },
+        // toast隐藏后触发
+        onHide() {
+            this.$router.go(-1);
         }
     }
 };
