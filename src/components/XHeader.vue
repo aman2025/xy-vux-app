@@ -11,12 +11,10 @@
 
 <script>
 import Vue from 'vue';
-import { XHeader, ConfirmPlugin } from 'vux';
-Vue.use(ConfirmPlugin);
+import { XHeader } from 'vux';
 export default {
     components: {
-        XHeader,
-        ConfirmPlugin
+        XHeader
     },
     props: ['title', 'hasclose', 'hassave', 'noright', 'headerType', 'leftOptions'],
     computed: {
@@ -29,18 +27,8 @@ export default {
         return {};
     },
     methods: {
-        // helpCenter() {
-        //     this.$router.push('./helpCenter');
-        // }
         save() {
-            var _this = this;
-            this.$vux.confirm.show({
-                title: '是否保存吗?',
-                onCancel() {},
-                onConfirm() {
-                    _this.$router.go(-1);
-                }
-            });
+            this.$emit('save');
         },
         close() {
             this.$router.go(-1);

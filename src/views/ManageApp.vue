@@ -1,6 +1,6 @@
 <template>
     <div>
-        <XHeader :title="title" :hasclose="true" :hassave="true" :left-options="leftOptions" headerType="line"></XHeader>
+        <XHeader :title="title" :hasclose="true" :hassave="true" :left-options="leftOptions" headerType="line" @save="save"></XHeader>
         <div class="manage-app-wrap">
             <div class="manage-app shadow-bottom">
                 <h3>我的应用</h3>
@@ -16,18 +16,22 @@
 </template>
 
 <script>
-import { Divider } from 'vux';
+import Vue from 'vue';
+import { Divider, ConfirmPlugin } from 'vux';
 import XHeader from '../components/XHeader';
 import AppList from '../components/AppList';
 import request from '../utils/request';
 import _ from 'lodash';
 import { formatTreeData } from '../utils/util';
+Vue.use(ConfirmPlugin);
+
 export default {
     name: 'Index',
     components: {
         XHeader,
         Divider,
-        AppList
+        AppList,
+        ConfirmPlugin
     },
     data() {
         return {
@@ -116,6 +120,34 @@ export default {
                 data.findIndex((o) => o.moduleCode == code),
                 1
             );
+        },
+        // 保存
+        save() {
+            console.log('sss..');
+            var _this = this;
+            this.$vux.confirm.show({
+                title: '是否保存吗?',
+                onCancel() {
+                    _this.$router.go(-1);
+                },
+                onConfirm() {
+                    _this.updateMyMenu();
+                }
+            });
+        },
+        // post保存
+        updateMyMenu() {
+            const url = 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/update-favorites';
+            const data = {
+                appName: 'bms',
+                favorites: 'm0001' // todo：对接后用实际子菜单
+            };
+            const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
+            requestMyMenu(data).then((res) => {
+                if (res.retCode == 0) {
+                    alert('更新成功'); // 用toast，返回上一级
+                }
+            });
         }
     }
 };
