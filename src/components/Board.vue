@@ -5,7 +5,7 @@
             <div>
                 <ul>
                     <li v-for="(obj, index) in item.children" :key="index" @click="linkto(obj.homeUrl)">
-                        <i></i>
+                        <i :style="obj.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
                         <span>{{ obj.moduleName }}</span>
                     </li>
                 </ul>

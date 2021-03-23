@@ -3,11 +3,11 @@
         <!-- my-menu -->
         <div class="sub-menu">
             <div class="sub-menu-item" v-for="item in myMenuData.slice(0, 7)" :key="item.moduleCode" @click="goto(item.homeUrl)">
-                <i></i>
+                <i :style="item.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
                 <span>{{ item.moduleName }}</span>
             </div>
             <div class="sub-menu-item" @click="goto(allItem.homeUrl)">
-                <i></i>
+                <i class="icon-allmenu"></i>
                 <span>{{ allItem.moduleName }}</span>
             </div>
         </div>
@@ -86,10 +86,10 @@ export default {
     margin: 0 auto;
 }
 
-.sub-menu .sub-menu-item .item01 {
+.sub-menu .sub-menu-item i {
     background-image: url(../assets/icon-func01.png);
 }
-.sub-menu .sub-menu-item .item100 {
+.sub-menu .sub-menu-item .icon-allmenu {
     background-image: url(../assets/icon-all.png);
 }
 .my-menu {

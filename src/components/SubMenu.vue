@@ -5,7 +5,7 @@
             <swiper-item v-for="(item, i) in swiperItemTotal" :key="i">
                 <div class="sub-menu">
                     <div class="sub-menu-item" v-for="(item, index) in singleSwiperData" :key="index" @click="goto(item.homeUrl)">
-                        <i :class="item.icon"></i>
+                        <i :style="item.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
                         <span>{{ item.moduleName }}</span>
                     </div>
                 </div>

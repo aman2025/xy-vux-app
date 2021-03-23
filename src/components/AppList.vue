@@ -5,7 +5,7 @@
             <div>
                 <ul>
                     <li v-for="item in apps" :key="item.moduleCode">
-                        <i></i>
+                        <i :style="item.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
                         <span>{{ item.moduleName }}</span>
                         <em :class="extype == 'del' ? 'icon-delete' : 'icon-add'" @click="exChange(extype, item.moduleCode)"></em>
                     </li>
