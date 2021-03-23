@@ -1,35 +1,42 @@
 <template>
     <div>
         <div class="notice-container">
-            <div v-for="(item, index) in contentData.rows" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
-                <div class="notice-item-title">
-                    <i v-if="['1', '2', '3'].includes(item.level)" :class="'icon-level0' + item.level"></i>
-                    <i v-else class="icon-read"></i>
-                    <span>{{ item.title }}</span>
-                    <div v-show="item.badge" class="notice-item-title-num">
-                        ( <em>{{ item.badge }}</em> )
+            <!-- 分类 -->
+            <div v-for="(value, key, index) in contentData" :key="index" class="notic-category">
+                <h3 v-show="key">{{ key }}</h3>
+                <div v-for="(item, index) in value" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
+                    <div class="notice-item-title">
+                        <i v-if="['1', '2', '3'].includes(item.level)" :class="'icon-level0' + item.level"></i>
+                        <i v-else class="icon-read"></i>
+                        <span>{{ item.title }}</span>
+                        <div v-show="item.badge" class="notice-item-title-num">
+                            ( <em>{{ item.badge }}</em> )
+                        </div>
                     </div>
-                </div>
-                <div class="notice-item-content">
-                    <div class="notice-item-content-left">
-                        <span v-for="(text, i) in item.tags" :key="i" class="notice-item-tag">{{ text }}</span>
+                    <div class="notice-item-content">
+                        <div class="notice-item-content-left">
+                            <span v-for="(text, i) in item.tags" :key="i" class="notice-item-tag">{{ text }}</span>
+                        </div>
+                        <div class="notice-item-content-right">{{ item.time }}</div>
                     </div>
-                    <div class="notice-item-content-right">{{ item.time }}</div>
                 </div>
             </div>
+
+            <!-- 分类 -->
         </div>
     </div>
 </template>
 
 <script>
 import request from '../utils/request';
+import _ from 'lodash';
 
 export default {
     components: {},
     props: ['contentUrl'],
     data() {
         return {
-            contentData: { rows: [] }
+            contentData: {}
         };
     },
     mounted() {
@@ -48,8 +55,9 @@ export default {
             const requestTpl = (data) => request.post(url, data); // todo: mock环境用get，正式环境post
             requestTpl(data)
                 .then((res) => {
-                    this.contentData = res.result;
-                    console.log(this.contentData);
+                    this.contentData = _.groupBy(res.result.rows, 'category');
+                    this.total = res.result.total;
+                    this.totalBadge = res.result.totalBadge;
                 })
                 .catch(() => {});
         }
@@ -127,5 +135,11 @@ export default {
 .notice-container .notice-item.readed .notice-item-content,
 .notice-container .notice-item.readed .notice-item-title {
     opacity: 0.39;
+}
+.notice-container .notic-category h3 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+    padding: 2.1rem 0.5rem 0.5rem;
 }
 </style>
