@@ -10,6 +10,7 @@
 import XyzCommonVue from 'xyz-common-vue';
 import Index from './views/Index';
 import Vue from 'vue';
+import request from './utils/request';
 
 export default {
     name: 'App',
@@ -19,6 +20,21 @@ export default {
     components: {
         XyzCommonVue,
         Index
+    },
+    mounted() {
+        this.getUser();
+    },
+    methods: {
+        // 获取用户信息
+        getUser() {
+            const url = '/load-user';
+            const requestMenu = () => request.post(url);
+            requestMenu()
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch(() => {});
+        }
     }
 };
 </script>
