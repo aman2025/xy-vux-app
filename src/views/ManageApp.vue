@@ -13,6 +13,7 @@
             </div>
         </div>
         <toast v-model="toastVisible" @on-hide="onHide">保存成功</toast>
+        <toast v-model="enoughToast" type="text">最多添加11个应用</toast>
     </div>
 </template>
 
@@ -43,7 +44,8 @@ export default {
             originMenuData: [],
             exChangeData: {}, // 合并es6扩展
             leftOptions: { showBack: false },
-            toastVisible: false
+            toastVisible: false,
+            enoughToast: false
         };
     },
     mounted() {
@@ -62,6 +64,11 @@ export default {
             });
 
             if (type == 'add') {
+                let myApplen = this.myMenuData.children.length;
+                if (myApplen >= 11) {
+                    this.enoughToast = true;
+                    return;
+                }
                 this.myMenuData.children.push(data); // 我的应用
                 const curAllMenu = this.allMenuData[curIndex];
                 curAllMenu && this.removeData(curAllMenu.children, curModuleCode);
