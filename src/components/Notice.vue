@@ -140,6 +140,6 @@ export default {
     font-size: 1.6rem;
     font-weight: bold;
     color: #333;
-    padding: 2.1rem 0.5rem 0.5rem;
+    padding: 2.1rem 0.5rem 0.5rem 0;
 }
 </style>
