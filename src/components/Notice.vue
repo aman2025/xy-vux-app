@@ -3,7 +3,8 @@
         <div class="notice-container">
             <div v-for="(item, index) in contentData.rows" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
                 <div class="notice-item-title">
-                    <i :class="{ 'icon-warn': item.level }"></i>
+                    <i v-if="['1', '2', '3'].includes(item.level)" :class="'icon-level0' + item.level"></i>
+                    <i v-else class="icon-read"></i>
                     <span>{{ item.title }}</span>
                     <div v-show="item.badge" class="notice-item-title-num">
                         ( <em>{{ item.badge }}</em> )
@@ -63,27 +64,7 @@ export default {
     padding: 1rem 0;
     border-bottom: 1px solid #f2f2f2;
 }
-.notice-container .notice-item.notice-item-category {
-    margin-left: 1.5rem;
-}
-.notice-container .notice-item.notice-item-category .notice-item-title:after {
-    content: '';
-    display: block;
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 50%;
-    background-color: #f56565;
-    position: absolute;
-    top: 0.8rem;
-    left: -1.5rem;
-}
-.notice-container .notice-item.notice-item-category.readed .notice-item-title:after {
-    opacity: 0.5;
-}
-.notice-container .notice-item.notice-item-category.readed .notice-item-content .notice-item-content-right,
-.notice-container .notice-item.notice-item-category.readed .notice-item-title {
-    color: #aaa;
-}
+
 .notice-container .notice-item .notice-item-title {
     position: relative;
     display: flex;
@@ -95,14 +76,25 @@ export default {
 }
 .notice-container .notice-item .notice-item-title i {
     display: none;
-    width: 2rem;
-    height: 2rem;
-    margin: 0.1rem 0 0 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0.3rem 0 0 0;
 }
-.notice-container .notice-item .notice-item-title i.icon-warn {
+.notice-container .notice-item .notice-item-title i {
     display: block;
-    background-image: url(../assets/icon-warn.png);
     margin-right: 0.6rem;
+}
+.notice-container .notice-item .notice-item-title i.icon-level01 {
+    background-image: url(../assets/icon-level01.png);
+}
+.notice-container .notice-item .notice-item-title i.icon-level02 {
+    background-image: url(../assets/icon-level02.png);
+}
+.notice-container .notice-item .notice-item-title i.icon-level03 {
+    background-image: url(../assets/icon-level03.png);
+}
+.notice-container .notice-item .notice-item-title i.icon-read {
+    background-image: url(../assets/icon-read.png);
 }
 .notice-container .notice-item .notice-item-content {
     display: flex;
@@ -131,5 +123,9 @@ export default {
 .notice-container .notice-item .notice-item-tag.tabColor02 {
     background-color: #fef6e9;
     color: #f5a92b;
+}
+.notice-container .notice-item.readed .notice-item-content,
+.notice-container .notice-item.readed .notice-item-title {
+    opacity: 0.39;
 }
 </style>
