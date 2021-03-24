@@ -44,7 +44,7 @@ export default {
         },
         // 获取我的菜单
         getMyMenu() {
-            const url = '/load-favorites';
+            const url = '/mee/load-favorites';
             const data = {
                 appName: 'bms'
             };

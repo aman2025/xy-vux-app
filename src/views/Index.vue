@@ -188,7 +188,7 @@ export default {
         },
         // 获取我的门户
         loadPortlets() {
-            const url = '/load-portlets';
+            const url = '/mee/load-portlets';
             const data = {
                 appName: 'bms' // todo: 请求参数动态获取
             };

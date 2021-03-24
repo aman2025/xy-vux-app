@@ -64,7 +64,7 @@ export default {
         },
         // 获取菜单
         getMenu() {
-            const url = '/load-authorized-modules';
+            const url = '/mee/load-authorized-modules';
             const data = {
                 appName: 'bms'
             };

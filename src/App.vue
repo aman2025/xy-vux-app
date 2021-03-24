@@ -27,7 +27,7 @@ export default {
     methods: {
         // 获取用户信息
         getUser() {
-            const url = '/load-user';
+            const url = '/mee/load-user';
             const requestMenu = () => request.post(url);
             requestMenu()
                 .then((res) => {

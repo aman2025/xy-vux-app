@@ -81,7 +81,7 @@ export default {
     methods: {
         // 获取我的收藏夹
         getMyMenu() {
-            const url = '/load-favorites';
+            const url = '/mee/load-favorites';
             const data = {
                 appName: 'bms'
             };
@@ -103,7 +103,7 @@ export default {
         },
         // 获取所有菜单
         getAllMenu(favritesData) {
-            const url = '/load-authorized-modules';
+            const url = '/mee/load-authorized-modules';
             const data = {
                 appName: 'bms'
             };
@@ -146,7 +146,7 @@ export default {
         },
         // post保存
         updateMyMenu() {
-            const url = '/update-favorites';
+            const url = '/mee/update-favorites';
             const data = {
                 appName: 'bms',
                 favorites: 'm0001' // todo：对接后用实际子菜单
