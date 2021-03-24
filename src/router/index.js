@@ -5,6 +5,7 @@ import Index from '../views/Index.vue';
 import ManageApp from '../views/ManageApp.vue';
 import NoticeDetail from '../views/NoticeDetail.vue';
 import BoardDetail from '../views/BoardDetail.vue';
+import Bind from '../views/Bind.vue';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ const router = new Router({
             path: '/boardDetail',
             name: 'boardDetail',
             component: BoardDetail
+        },
+        {
+            path: '/bind',
+            name: 'bind',
+            component: Bind
         }
     ]
 });
