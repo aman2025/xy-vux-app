@@ -25,6 +25,7 @@ import { Tab, TabItem } from 'vux';
 import XHeader from '../components/XHeader';
 import Board from '../components/Board';
 import Notice from '../components/Notice';
+import CustomTemp from '../components/CustomTemp';
 import MenuBox from '../components/MenuBox';
 import request from '../utils/request';
 import { PageUtils } from '../utils/util';
@@ -37,6 +38,7 @@ export default {
         Tab,
         Notice,
         MenuBox,
+        CustomTemp,
         Board
     },
     data() {
@@ -75,7 +77,7 @@ export default {
                 case 'category':
                     return 'Category';
                 default:
-                    return 'Notice';
+                    return 'CustomTemp';
             }
         }
     }

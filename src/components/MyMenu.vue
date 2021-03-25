@@ -17,7 +17,7 @@
 
 <script>
 import request from '../utils/request';
-import { formatTreeData, PageUtils } from '../utils/util';
+import { formatTreeData, PageUtils, getBaseUrl } from '../utils/util';
 
 export default {
     name: 'MyMenu',
@@ -40,9 +40,8 @@ export default {
     methods: {
         goto(homeUrl) {
             if (homeUrl.indexOf('ManageApp') == -1) {
-                const url = window.location.href;
-                const base_url = url.split('?')[0];
-                window.location.href = base_url + PageUtils.getPageGateWay() + homeUrl;
+                console.log(getBaseUrl());
+                window.location.href = getBaseUrl() + PageUtils.getPageGateWay() + homeUrl;
             } else {
                 this.$router.push(homeUrl);
             }

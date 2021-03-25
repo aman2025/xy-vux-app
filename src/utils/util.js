@@ -37,6 +37,13 @@ export const getParameter = (search, name) => {
     return value;
 };
 
+//base_url
+export const getBaseUrl = () => {
+    const url = window.location.href;
+    const base_url = url.split('?')[0];
+    return base_url;
+};
+
 export const isJsonString = str => {
     try {
         if (typeof JSON.parse(str) === 'object') {

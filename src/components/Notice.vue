@@ -3,7 +3,7 @@
         <div class="notice-container">
             <!-- 分类 -->
             <div v-for="(value, key, index) in contentData" :key="index" class="notic-category">
-                <h3 v-show="key">{{ key }}</h3>
+                <h3 v-show="key && key != 'undefined'">{{ key }}</h3>
                 <div v-for="(item, index) in value" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
                     <div class="notice-item-title">
                         <i v-if="['1', '2', '3'].includes(item.level)" :class="'icon-level0' + item.level"></i>
