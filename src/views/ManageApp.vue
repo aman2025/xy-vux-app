@@ -24,7 +24,7 @@ import XHeader from '../components/XHeader';
 import AppList from '../components/AppList';
 import request from '../utils/request';
 import _ from 'lodash';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData, PageUtils } from '../utils/util';
 Vue.use(ConfirmPlugin);
 
 export default {
@@ -82,7 +82,7 @@ export default {
     methods: {
         // 获取我的收藏夹
         getMyMenu() {
-            const url = '/mee/load-favorites';
+            const url = PageUtils.getServiceUrl('load-favorites');
             const data = {
                 appName: this.$store.state.appName
             };
@@ -104,7 +104,7 @@ export default {
         },
         // 获取所有菜单
         getAllMenu(favritesData) {
-            const url = '/mee/load-authorized-modules';
+            const url = PageUtils.getServiceUrl('load-authorized-modules');
             const data = {
                 appName: this.$store.state.appName
             };
@@ -147,7 +147,7 @@ export default {
         },
         // post保存
         updateMyMenu() {
-            const url = '/mee/update-favorites';
+            const url = PageUtils.getServiceUrl('update-favorites');
             const data = {
                 appName: this.$store.state.appName,
                 favorites: this.selectedModuleCode()

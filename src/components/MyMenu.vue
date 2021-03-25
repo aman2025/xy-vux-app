@@ -49,7 +49,7 @@ export default {
         },
         // 获取我的菜单
         getMyMenu() {
-            const url = '/mee/load-favorites';
+            const url = PageUtils.getServiceUrl('load-favorites');
             const data = {
                 appName: this.$store.state.appName
             };

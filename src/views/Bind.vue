@@ -16,6 +16,7 @@
 import Vue from 'vue';
 import { Toast, XInput, XButton, Group } from 'vux';
 import request from '../utils/request';
+import { PageUtils } from '../utils/util';
 
 export default {
     name: 'Bind',
@@ -37,7 +38,7 @@ export default {
     methods: {
         // post保存
         bindAccount() {
-            const url = '/mee/bind';
+            const url = PageUtils.getServiceUrl('bind');
             const data = {
                 userCode: this.account.userCode,
                 password: this.account.password
