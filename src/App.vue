@@ -11,6 +11,7 @@ import XyzCommonVue from 'xyz-common-vue';
 import Index from './views/Index';
 import Vue from 'vue';
 import request from './utils/request';
+import { PageUtils } from './utils/util';
 
 export default {
     name: 'App',
@@ -22,13 +23,14 @@ export default {
         Index
     },
     mounted() {
+        console.log(1);
         this.getUser();
     },
     methods: {
         // 获取用户信息
         getUser() {
-            const url = '/mee/load-user';
-            const requestMenu = () => request.post(url);
+            const userUrl = PageUtils.getServiceUrl('load-user');
+            const requestMenu = () => request.post(userUrl);
             requestMenu()
                 .then((res) => {
                     console.log(res);

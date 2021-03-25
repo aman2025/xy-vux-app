@@ -16,14 +16,14 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { isPlainObject } from './util';
+import { isPlainObject, generateUrl } from './util';
 import store from '../store';
-
-const API_GENERAL_ERROR_MESSAGE = 'Request error, please try again later!';
 
 function goLogin() {
     const url = window.location.href;
+    console.log(url);
     localStorage.removeItem('token');
+
     const base_url = url.split('#')[0];
     window.location.href = `${base_url}#/login`;
 }
@@ -57,7 +57,7 @@ const request = () => {
             // beforeSend
             openLoading(beforeSend);
             // 无需token访问
-            // if (!url.includes('auth/users/login')) { 
+            // if (!url.includes('auth/users/login')) {
             //     let token = {};
             //     try {
             //         token = JSON.parse(localStorage.token);
@@ -87,11 +87,15 @@ const request = () => {
 
     instance.interceptors.response.use(
         response => {
-            // const { success, resultCode, resultMessage = API_GENERAL_ERROR_MESSAGE } = response.data;
-            // if (!success && resultCode !== SUCCESS_RESULT_CODE) {
-            //   Message.error(resultMessage);
-            //   return Promise.reject(new Error(resultMessage));
-            // }
+            const { error, retCode } = response.data;
+            var query = window.location.search;
+            console.log(query);
+            if (retCode != 0 && error.code == 'BIZ.UN_AUTHN') {
+                //未登录
+                // goLogin();
+                console.log(error.message);
+                return Promise.reject(new Error(error.message));
+            }
             closeLoading();
             return response.data;
         },
@@ -110,7 +114,7 @@ const request = () => {
                 return Promise.reject(error.response);
             }
             closeLoading();
-            console.log(API_GENERAL_ERROR_MESSAGE);
+            console.log(error);
             return Promise.reject(error);
         }
     );
