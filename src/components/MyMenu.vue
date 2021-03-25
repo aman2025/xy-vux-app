@@ -17,7 +17,7 @@
 
 <script>
 import request from '../utils/request';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData, PageUtils } from '../utils/util';
 
 export default {
     name: 'MyMenu',
@@ -29,8 +29,7 @@ export default {
             allItem: {
                 moduleCode: 'funcAll',
                 moduleName: '全部',
-                homeUrl: '/ManageApp',
-                iconUrl: '/mobile-page/func-all.ico'
+                homeUrl: '/ManageApp'
             }
         };
     },
@@ -40,7 +39,13 @@ export default {
     },
     methods: {
         goto(homeUrl) {
-            this.$router.push(homeUrl);
+            if (homeUrl.indexOf('ManageApp') == -1) {
+                const url = window.location.href;
+                const base_url = url.split('?')[0];
+                window.location.href = base_url + PageUtils.getPageGateWay() + homeUrl;
+            } else {
+                this.$router.push(homeUrl);
+            }
         },
         // 获取我的菜单
         getMyMenu() {

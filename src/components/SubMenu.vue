@@ -17,6 +17,8 @@
 
 <script>
 import { Swiper, SwiperItem } from 'vux';
+import { PageUtils } from '../utils/util';
+
 export default {
     name: 'SubMenu',
     components: {
@@ -47,7 +49,9 @@ export default {
     },
     methods: {
         goto(homeUrl) {
-            this.$router.push(homeUrl);
+            const url = window.location.href;
+            const base_url = url.split('?')[0];
+            window.location.href = base_url + PageUtils.getPageGateWay() + homeUrl;
         }
     }
 };
