@@ -77,17 +77,21 @@ const request = () => {
 
     instance.interceptors.response.use(
         response => {
-            const { error, retCode } = response.data;
-
-            if (retCode != 0) {
-                if (error.code == 'BIZ.UN_AUTHN') {
-                    goLogin();
-                } else {
-                    alert(error.message);
+            // 没有模板, res是html片段
+            if (typeof response.data != 'string') {
+                console.log(typeof response.data);
+                const { error, retCode } = response.data;
+                if (retCode != 0) {
+                    if (error.code == 'BIZ.UN_AUTHN') {
+                        goLogin();
+                    } else {
+                        alert(error.message);
+                    }
+                    closeLoading();
+                    return Promise.reject(new Error(error.message));
                 }
-                closeLoading();
-                return Promise.reject(new Error(error.message));
             }
+
             closeLoading();
             return response.data;
         },
