@@ -23,7 +23,6 @@ export default {
         Index
     },
     mounted() {
-        console.log(1);
         this.getUser();
     },
     methods: {
