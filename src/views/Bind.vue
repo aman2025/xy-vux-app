@@ -8,7 +8,7 @@
         <div @click="bindAccount" style="padding: 15px">
             <x-button type="primary">绑定</x-button>
         </div>
-        <toast v-model="toastVisible" @on-hide="onHide">{{ toastText }}</toast>
+        <toast v-model="toastVisible" type="text" @on-hide="onHide">{{ toastText }}</toast>
     </div>
 </template>
 
@@ -30,7 +30,8 @@ export default {
             account: { userCode: '', password: '' },
             toastVisible: false,
             toastText: '',
-            toastCode: ''
+            toastCode: '',
+            errorCode: ''
         };
     },
     methods: {
@@ -48,17 +49,16 @@ export default {
                 if (res.retCode == 0) {
                     this.toastText = '绑定成功';
                 } else {
-                    this.toastText = res.error.message;
+                    this.errorCode = res.error.code || '';
+                    this.toastText = res.error.message || '';
                 }
             });
         },
         // toast隐藏后触发
         onHide() {
-            if (this.toastCode == 0) {
+            if (this.toastCode == 0 || this.errorCode == 'BIZ.AUTH_CODE_EXPIRE') {
                 //成功后跳转
                 this.$router.push('/');
-            } else {
-                //失败
             }
         }
     }
