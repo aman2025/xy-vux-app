@@ -11,7 +11,7 @@ import XyzCommonVue from 'xyz-common-vue';
 import Index from './views/Index';
 import Vue from 'vue';
 import request from './utils/request';
-import { PageUtils } from './utils/util';
+import { PageUtils, getParameter } from './utils/util';
 
 export default {
     name: 'App',
@@ -21,6 +21,12 @@ export default {
     components: {
         XyzCommonVue,
         Index
+    },
+    created() {
+        //设置store中的appName, url参数获取
+        const query = window.location.search;
+        const appName = getParameter(query, 'appName');
+        this.$store.commit('setAppName', appName);
     },
     mounted() {
         this.getUser();

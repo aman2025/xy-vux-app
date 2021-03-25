@@ -86,7 +86,6 @@ const request = () => {
                     alert(error.message);
                 }
                 closeLoading();
-
                 return Promise.reject(new Error(error.message));
             }
             closeLoading();

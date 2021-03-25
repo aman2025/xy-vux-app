@@ -190,7 +190,7 @@ export default {
         loadPortlets() {
             const url = '/mee/load-portlets';
             const data = {
-                appName: 'bms' // todo: 请求参数动态获取
+                appName: this.$store.state.appName
             };
             const requestPortlets = (data) => request.post(url, data);
             requestPortlets(data).then((res) => {

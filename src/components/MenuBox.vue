@@ -66,7 +66,7 @@ export default {
         getMenu() {
             const url = '/mee/load-authorized-modules';
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)

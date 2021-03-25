@@ -46,7 +46,7 @@ export default {
         getMyMenu() {
             const url = '/mee/load-favorites';
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestMyMenu = (data) => request.post(url, data);
             requestMyMenu(data)
