@@ -1,4 +1,4 @@
-import { WebConfig, SERVICE_NAME, PAGE_NAME, serviceGateWay, pageGateWay } from '../config';
+import { WebConfig, SERVICE_NAME, PAGE_NAME } from '../config';
 
 const global = window;
 
@@ -37,10 +37,16 @@ export const getParameter = (search, name) => {
     return value;
 };
 
-//base_url
+//base_url，如果没有？，去#号前
 export const getBaseUrl = () => {
     const url = window.location.href;
-    const base_url = url.split('?')[0];
+    let base_url = '';
+    if (url.indexOf('?') == -1) {
+        base_url = url.split('#')[0];
+    } else {
+        base_url = url.split('?')[0];
+    }
+    console.log(base_url);
     return base_url;
 };
 
