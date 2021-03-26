@@ -17,7 +17,7 @@
 
 <script>
 import request from '../utils/request';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData, PageUtils, getBaseUrl } from '../utils/util';
 
 export default {
     name: 'MyMenu',
@@ -29,8 +29,7 @@ export default {
             allItem: {
                 moduleCode: 'funcAll',
                 moduleName: '全部',
-                homeUrl: '/ManageApp',
-                iconUrl: '/mobile-page/func-all.ico'
+                homeUrl: '/ManageApp'
             }
         };
     },
@@ -40,13 +39,18 @@ export default {
     },
     methods: {
         goto(homeUrl) {
-            this.$router.push(homeUrl);
+            if (homeUrl.indexOf('ManageApp') == -1) {
+                console.log(getBaseUrl());
+                window.location.href = getBaseUrl() + PageUtils.getPageGateWay() + homeUrl;
+            } else {
+                this.$router.push(homeUrl);
+            }
         },
         // 获取我的菜单
         getMyMenu() {
-            const url = '/load-favorites';
+            const url = PageUtils.getServiceUrl('load-favorites');
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestMyMenu = (data) => request.post(url, data);
             requestMyMenu(data)

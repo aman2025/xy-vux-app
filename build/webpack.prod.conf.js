@@ -1,19 +1,19 @@
-'use strict'
-const path = require('path')
-const utils = require('./utils')
-const webpack = require('webpack')
-const _ = require('lodash')
-const config = require('../config')
-const fs = require('fs')
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+'use strict';
+const path = require('path');
+const utils = require('./utils');
+const webpack = require('webpack');
+const _ = require('lodash');
+const config = require('../config');
+const fs = require('fs');
+const merge = require('webpack-merge');
+const baseWebpackConfig = require('./webpack.base.conf');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const env = require('../config/prod.env')
+const env = require('../config/prod.env');
 
 let pluginsConfig = [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -31,19 +31,17 @@ let pluginsConfig = [
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-        filename: utils.assetsPath('css/[name].[contenthash].css'),
+        filename: utils.assetsPath('css/[name].css'),
         // Setting the following option to `false` will not extract CSS from codesplit chunks.
         // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
         // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
         // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-        allChunks: true,
+        allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
-        cssProcessorOptions: config.build.productionSourceMap
-            ? { safe: true, map: { inline: false } }
-            : { safe: true }
+        cssProcessorOptions: config.build.productionSourceMap ? { safe: true, map: { inline: false } } : { safe: true }
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -69,15 +67,9 @@ let pluginsConfig = [
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
-        minChunks (module) {
+        minChunks(module) {
             // any required modules inside node_modules are extracted to vendor
-            return (
-                module.resource &&
-                /\.js$/.test(module.resource) &&
-                module.resource.indexOf(
-                    path.join(__dirname, '../node_modules')
-                ) === 0
-            )
+            return module.resource && /\.js$/.test(module.resource) && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0;
         }
     }),
     // extract webpack runtime and module manifest to its own file in order to
@@ -98,73 +90,73 @@ let pluginsConfig = [
 ];
 let assetsFromPath = path.resolve(__dirname, '../src/assets');
 let distAssetsPath = path.join(__dirname, '../dist/assets');
-if(fs.existsSync(assetsFromPath)){
-    pluginsConfig.push(new CopyWebpackPlugin([
-        {
-            from: assetsFromPath,
-            to: distAssetsPath,
-            ignore: ['.*']
-        }
-    ]));
+if (fs.existsSync(assetsFromPath)) {
+    pluginsConfig.push(
+        new CopyWebpackPlugin([
+            {
+                from: assetsFromPath,
+                to: distAssetsPath,
+                ignore: ['.*']
+            }
+        ])
+    );
 }
 
 let nodeModulesPath = path.resolve(__dirname, '../node_modules');
 let nodeFileList = fs.readdirSync(nodeModulesPath);
-let xyzMod = _.filter(nodeFileList, function(nfl){
+let xyzMod = _.filter(nodeFileList, function(nfl) {
     return nfl.substring(0, 4) === 'xyz-';
 });
-_.each(xyzMod, function(_nodeName){
+_.each(xyzMod, function(_nodeName) {
     let _modPath = path.join(nodeModulesPath, _nodeName);
     let _pkgPath = path.join(_modPath, 'package.json');
     let _json = JSON.parse(fs.readFileSync(_pkgPath).toString());
-    if(_json.assets === true){
-        pluginsConfig.push(new CopyWebpackPlugin([
-            {
-                from: path.join(_modPath, '/dist/assets'),
-                to: distAssetsPath
-            }
-        ]));
+    if (_json.assets === true) {
+        pluginsConfig.push(
+            new CopyWebpackPlugin([
+                {
+                    from: path.join(_modPath, '/dist/assets'),
+                    to: distAssetsPath
+                }
+            ])
+        );
     }
-});   //ysj  copy组件assets，ps：只有需要动态加载的文件才需要配置， 如xyz-mxgraph组件
+}); //ysj  copy组件assets，ps：只有需要动态加载的文件才需要配置， 如xyz-mxgraph组件
 
 const webpackConfig = merge(baseWebpackConfig, {
-  module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true,
-      usePostCSS: true
-    })
-  },
-  devtool: config.build.productionSourceMap ? config.build.devtool : false,
-  output: {
-    path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-  },
-  plugins: pluginsConfig
+    module: {
+        rules: utils.styleLoaders({
+            sourceMap: config.build.productionSourceMap,
+            extract: true,
+            usePostCSS: true
+        })
+    },
+    devtool: config.build.productionSourceMap ? config.build.devtool : false,
+    output: {
+        path: config.build.assetsRoot,
+        filename: utils.assetsPath('js/[name].js'),
+        chunkFilename: utils.assetsPath('js/[id].js')
+    },
+    plugins: pluginsConfig
 });
 
 if (config.build.productionGzip) {
-  const CompressionWebpackPlugin = require('compression-webpack-plugin')
+    const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
-  webpackConfig.plugins.push(
-    new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
-      ),
-      threshold: 10240,
-      minRatio: 0.8
-    })
-  )
+    webpackConfig.plugins.push(
+        new CompressionWebpackPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp('\\.(' + config.build.productionGzipExtensions.join('|') + ')$'),
+            threshold: 10240,
+            minRatio: 0.8
+        })
+    );
 }
 
 if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
-module.exports = webpackConfig
+module.exports = webpackConfig;

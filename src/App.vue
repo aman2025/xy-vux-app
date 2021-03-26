@@ -11,6 +11,7 @@ import XyzCommonVue from 'xyz-common-vue';
 import Index from './views/Index';
 import Vue from 'vue';
 import request from './utils/request';
+import { PageUtils, getParameter } from './utils/util';
 
 export default {
     name: 'App',
@@ -21,14 +22,20 @@ export default {
         XyzCommonVue,
         Index
     },
+    created() {
+        //设置store中的appName, url参数获取
+        const query = window.location.search;
+        const appName = getParameter(query, 'appName');
+        this.$store.commit('setAppName', appName);
+    },
     mounted() {
         this.getUser();
     },
     methods: {
         // 获取用户信息
         getUser() {
-            const url = '/load-user';
-            const requestMenu = () => request.post(url);
+            const userUrl = PageUtils.getServiceUrl('load-user');
+            const requestMenu = () => request.post(userUrl);
             requestMenu()
                 .then((res) => {
                     console.log(res);

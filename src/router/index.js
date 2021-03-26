@@ -5,10 +5,7 @@ import Index from '../views/Index.vue';
 import ManageApp from '../views/ManageApp.vue';
 import NoticeDetail from '../views/NoticeDetail.vue';
 import BoardDetail from '../views/BoardDetail.vue';
-// 临时
-import Api from '../views/Api.vue';
-import temp from '../views/temp.vue';
-import Mock from '../views/Mock.vue';
+import Bind from '../views/Bind.vue';
 
 Vue.use(Router);
 
@@ -35,19 +32,9 @@ const router = new Router({
             component: BoardDetail
         },
         {
-            path: '/temp',
-            name: 'temp',
-            component: temp
-        },
-        {
-            path: '/api',
-            name: 'Api',
-            component: Api
-        },
-        {
-            path: '/mock',
-            name: 'Mock',
-            component: Mock
+            path: '/bind',
+            name: 'bind',
+            component: Bind
         }
     ]
 });

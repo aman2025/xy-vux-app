@@ -24,7 +24,7 @@ import XHeader from '../components/XHeader';
 import AppList from '../components/AppList';
 import request from '../utils/request';
 import _ from 'lodash';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData, PageUtils } from '../utils/util';
 Vue.use(ConfirmPlugin);
 
 export default {
@@ -70,6 +70,7 @@ export default {
                     return;
                 }
                 this.myMenuData.children.push(data); // 我的应用
+
                 const curAllMenu = this.allMenuData[curIndex];
                 curAllMenu && this.removeData(curAllMenu.children, curModuleCode);
             } else {
@@ -81,9 +82,9 @@ export default {
     methods: {
         // 获取我的收藏夹
         getMyMenu() {
-            const url = '/load-favorites';
+            const url = PageUtils.getServiceUrl('load-favorites');
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
             requestMyMenu(data)
@@ -103,9 +104,9 @@ export default {
         },
         // 获取所有菜单
         getAllMenu(favritesData) {
-            const url = '/load-authorized-modules';
+            const url = PageUtils.getServiceUrl('load-authorized-modules');
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestAllMenu = (data) => request.post(url, data);
             requestAllMenu(data).then((res) => {
@@ -146,15 +147,14 @@ export default {
         },
         // post保存
         updateMyMenu() {
-            const url = '/update-favorites';
+            const url = PageUtils.getServiceUrl('update-favorites');
             const data = {
-                appName: 'bms',
-                favorites: 'm0001' // todo：对接后用实际子菜单
+                appName: this.$store.state.appName,
+                favorites: this.selectedModuleCode()
             };
-            const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
+            const requestMyMenu = (data) => request.post(url, data);
             requestMyMenu(data).then((res) => {
                 if (res.retCode == 0) {
-                    // alert('更新成功'); // 用toast，返回上一级
                     this.toastVisible = true;
                 }
             });
@@ -162,6 +162,15 @@ export default {
         // toast隐藏后触发
         onHide() {
             this.$router.go(-1);
+        },
+        // 已收藏的菜单moduleCode
+        selectedModuleCode() {
+            const arrModuleCode = [];
+            this.myMenuData.children.forEach((item) => {
+                arrModuleCode.push(item.moduleCode);
+            });
+            const codeStr = arrModuleCode.join(',');
+            return codeStr;
         }
     }
 };

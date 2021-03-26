@@ -23,7 +23,7 @@
 import SubMenu from '../components/SubMenu';
 import MyMenu from '../components/MyMenu';
 import request from '../utils/request';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData, PageUtils } from '../utils/util';
 
 export default {
     name: 'MenuBox',
@@ -64,9 +64,9 @@ export default {
         },
         // 获取菜单
         getMenu() {
-            const url = '/load-authorized-modules';
+            const url = PageUtils.getServiceUrl('load-authorized-modules');
             const data = {
-                appName: 'bms'
+                appName: this.$store.state.appName
             };
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)

@@ -11,7 +11,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/', //设置你调用的接口域名和端口号
+                target: 'https://mockapi.eolinker.com/SutL6fnebf3f5cc51d7c280161df78cb41f31295b541957/', //设置你调用的接口域名和端口号 , 开发环境 http://10.169.2.189:8082/
                 changeOrigin: true, //是否跨域
                 pathRewrite: {
                     '^/': '/'
@@ -20,7 +20,7 @@ module.exports = {
         },
 
         // Various Dev Server settings
-        host: '0.0.0.0', // can be overwritten by process.env.HOST
+        host: 'localhost', // can be overwritten by process.env.HOST
         port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
         autoOpenBrowser: false,
         errorOverlay: true,

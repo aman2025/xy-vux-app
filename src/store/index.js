@@ -7,7 +7,8 @@ export default new Vuex.Store({
     state: {
         menuActiveId: '999',
         tabActiveIndex: 0,
-        isLoad: false
+        isLoad: false,
+        appName: ''
     },
     getters: {},
     mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         },
         setIsLoad(state, visible) {
             state.isLoad = visible;
+        },
+        setAppName(state, name) {
+            state.appName = name;
         }
     },
     actions: {},

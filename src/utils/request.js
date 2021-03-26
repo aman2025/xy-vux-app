@@ -1,31 +1,21 @@
 /*
- * Copyright 1999-2018 Alibaba Group Holding Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+    封装axios
  */
 
 import axios from 'axios';
 import qs from 'qs';
-import { isPlainObject } from './util';
+import { isPlainObject, getParameter } from './util';
 import store from '../store';
-
-const API_GENERAL_ERROR_MESSAGE = 'Request error, please try again later!';
 
 function goLogin() {
     const url = window.location.href;
+    const query = window.location.search;
+    const appName = getParameter(query, 'appName');
+    const terminal = getParameter(query, 'terminal');
     localStorage.removeItem('token');
-    const base_url = url.split('#')[0];
-    window.location.href = `${base_url}#/login`;
+    const base_url = url.split('?')[0];
+    // console.log(window.location.href.split('?')[0]);
+    window.location.href = `${base_url}login?appName=${appName}&terminal=${terminal}`;
 }
 
 // loading, count防止同时多个请求，执行多次loading
@@ -57,7 +47,7 @@ const request = () => {
             // beforeSend
             openLoading(beforeSend);
             // 无需token访问
-            // if (!url.includes('auth/users/login')) { 
+            // if (!url.includes('auth/users/login')) {
             //     let token = {};
             //     try {
             //         token = JSON.parse(localStorage.token);
@@ -87,11 +77,21 @@ const request = () => {
 
     instance.interceptors.response.use(
         response => {
-            // const { success, resultCode, resultMessage = API_GENERAL_ERROR_MESSAGE } = response.data;
-            // if (!success && resultCode !== SUCCESS_RESULT_CODE) {
-            //   Message.error(resultMessage);
-            //   return Promise.reject(new Error(resultMessage));
-            // }
+            // 没有模板, res是html片段
+            if (typeof response.data != 'string') {
+                console.log(typeof response.data);
+                const { error, retCode } = response.data;
+                if (retCode != 0) {
+                    if (error.code == 'BIZ.UN_AUTHN') {
+                        goLogin();
+                    } else {
+                        alert(error.message);
+                    }
+                    closeLoading();
+                    return Promise.reject(new Error(error.message));
+                }
+            }
+
             closeLoading();
             return response.data;
         },
@@ -110,7 +110,7 @@ const request = () => {
                 return Promise.reject(error.response);
             }
             closeLoading();
-            console.log(API_GENERAL_ERROR_MESSAGE);
+            console.log(error);
             return Promise.reject(error);
         }
     );
