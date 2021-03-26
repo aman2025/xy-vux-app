@@ -1,9 +1,7 @@
 <template>
     <div>
         <XHeader :title="title" headerType="line" :noright="true"></XHeader>
-        <div style="padding: 1rem">
-            <img src="../assets/detail01.png" />
-        </div>
+        <div style="padding: 1rem">详情页面</div>
     </div>
 </template>
 
