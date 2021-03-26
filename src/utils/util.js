@@ -1,6 +1,7 @@
-import { WebConfig, SERVICE_NAME, PAGE_NAME } from '../config';
-
 const global = window;
+const WebConfig = global.WebConfig || {};
+const SERVICE_NAME = WebConfig.SERVICE_NAME || 'mee';
+const PAGE_NAME = WebConfig.PAGE_NAME || 'mee';
 
 export const throttle = (fn, delay) => {
     let timer = null;

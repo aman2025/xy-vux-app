@@ -79,7 +79,6 @@ const request = () => {
         response => {
             // 没有模板, res是html片段
             if (typeof response.data != 'string') {
-                console.log(typeof response.data);
                 const { error, retCode } = response.data;
                 if (retCode != 0) {
                     if (error.code == 'BIZ.UN_AUTHN') {

@@ -4,7 +4,7 @@
             <!-- 分类 -->
             <div v-for="(value, key, index) in contentData" :key="index" class="notic-category">
                 <h3 v-show="key && key != 'undefined'">{{ key }}</h3>
-                <div v-for="(item, index) in value" :key="index" class="notice-item" :class="{ readed: item.status == 'UNREAD' }" @click="linkto(item.detailUrl)">
+                <div v-for="(item, index) in value" :key="index" class="notice-item" :class="{ readed: item.status == 'READ' }" @click="linkto(item.detailUrl)">
                     <div class="notice-item-title">
                         <i v-if="['1', '2', '3'].includes(item.level)" :class="'icon-level0' + item.level"></i>
                         <i v-else class="icon-read"></i>
@@ -50,9 +50,9 @@ export default {
         getListOfTpl(url) {
             const data = {
                 pageNum: 1,
-                pageSize: 10
+                pageSize: 1000
             };
-            const requestTpl = (data) => request.post(url, data); // todo: mock环境用get，正式环境post
+            const requestTpl = (data) => request.post(url, data);
             requestTpl(data)
                 .then((res) => {
                     this.contentData = _.groupBy(res.result.rows, 'category');

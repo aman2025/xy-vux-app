@@ -55,11 +55,7 @@ export default {
             const requestMyMenu = (data) => request.post(url, data);
             requestMyMenu(data)
                 .then((res) => {
-                    const curMenu = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
-                    // 我的--只有一个父级
-                    if (curMenu.length && curMenu[0].children) {
-                        this.myMenuData = curMenu[0].children || [];
-                    }
+                    this.myMenuData = res.result || [];
                 })
                 .catch(() => {});
         }

@@ -4,7 +4,7 @@
         <div class="manage-app-wrap">
             <div class="manage-app shadow-bottom">
                 <h3>我的应用</h3>
-                <AppList :apps="myMenuData.children" v-model="exChangeData" extype="del" />
+                <AppList :apps="myMenuData" v-model="exChangeData" extype="del" />
                 <divider>最多添加11个应用</divider>
             </div>
             <div class="manage-app shadow-top">
@@ -64,17 +64,17 @@ export default {
             });
 
             if (type == 'add') {
-                let myApplen = this.myMenuData.children.length;
+                let myApplen = this.myMenuData.length;
                 if (myApplen >= 11) {
                     this.enoughToast = true;
                     return;
                 }
-                this.myMenuData.children.push(data); // 我的应用
+                this.myMenuData.push(data); // 我的应用
 
                 const curAllMenu = this.allMenuData[curIndex];
                 curAllMenu && this.removeData(curAllMenu.children, curModuleCode);
             } else {
-                this.removeData(this.myMenuData.children, curModuleCode); // 我的应用
+                this.removeData(this.myMenuData, curModuleCode); // 我的应用
                 this.allMenuData[curIndex].children.push(data);
             }
         }
@@ -89,17 +89,10 @@ export default {
             const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
             requestMyMenu(data)
                 .then((res) => {
-                    const menusData = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
-                    // todo: 查找我的 moduleCode: "mymenu"前后端约定; curMenu = menuData[0]一样
-                    var curMenu = menusData.find(function (m) {
-                        return m.moduleCode == 'mymenu';
-                    });
-                    if (curMenu && curMenu.children) {
-                        this.myMenuData = curMenu;
-                    }
+                    this.myMenuData = res.result;
                 })
                 .then(() => {
-                    this.getAllMenu(this.myMenuData.children);
+                    this.getAllMenu(this.myMenuData);
                 });
         },
         // 获取所有菜单
@@ -166,7 +159,7 @@ export default {
         // 已收藏的菜单moduleCode
         selectedModuleCode() {
             const arrModuleCode = [];
-            this.myMenuData.children.forEach((item) => {
+            this.myMenuData.forEach((item) => {
                 arrModuleCode.push(item.moduleCode);
             });
             const codeStr = arrModuleCode.join(',');
