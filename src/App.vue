@@ -29,7 +29,9 @@ export default {
         this.$store.commit('setAppName', appName);
     },
     mounted() {
-        this.getUser();
+        if (this.$route.path.indexOf('bind') == -1) {
+            this.getUser();
+        }
     },
     methods: {
         // 获取用户信息
