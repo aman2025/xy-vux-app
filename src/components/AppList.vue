@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="app-list">
-            <h3 v-show="title">{{ title }}</h3>
+            <h3 v-show="appTitle">{{ title }}</h3>
             <div>
                 <ul>
                     <li v-for="item in apps" :key="item.moduleCode">
@@ -20,12 +20,16 @@ export default {
     components: {},
     props: ['apps', 'title', 'extype'],
     data() {
-        return {};
+        return {
+            appTitle: true
+        };
     },
     watch: {
         apps: function (newVal) {
             if (newVal.length == 0) {
-                this.$emit('changeTitle'); //触发父组件事件
+                this.appTitle = false;
+            } else {
+                this.appTitle = true;
             }
         }
     },

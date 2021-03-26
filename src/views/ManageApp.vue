@@ -9,7 +9,7 @@
             </div>
             <div class="manage-app shadow-top">
                 <h3>全部应用</h3>
-                <AppList v-for="item in allMenuData" v-model="exChangeData" extype="add" :apps="item.children" :key="item.moduleCode" :title="item.moduleName" @changeTitle="item.moduleName = ''" />
+                <AppList v-for="item in allMenuData" v-model="exChangeData" extype="add" :apps="item.children" :key="item.moduleCode" :title="item.moduleName" />
             </div>
         </div>
         <toast v-model="toastVisible" @on-hide="onHide">保存成功</toast>
