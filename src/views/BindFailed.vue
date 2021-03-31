@@ -39,7 +39,7 @@ export default {
             this.$router.push('/bind');
         },
         toHome() {
-            this.$router.push('/');
+            this.$router.push('/index');
         }
     }
 };
