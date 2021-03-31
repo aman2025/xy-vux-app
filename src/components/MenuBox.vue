@@ -1,5 +1,5 @@
 <template>
-    <div class="menu">
+    <div class="menu" v-if="menuVisible">
         <div class="menu-box">
             <div class="menu-my" :class="{ 'menu-selected': activeId == '999' }" @click="changeMenu('999')">{{ myMenuName }}</div>
             <div class="menu-container">
@@ -36,7 +36,8 @@ export default {
         return {
             menus: [],
             activeId: this.$store.state.menuActiveId,
-            myMenuName: '我的'
+            myMenuName: '我的',
+            menuVisible: true
         };
     },
     mounted() {
@@ -71,7 +72,12 @@ export default {
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)
                 .then((res) => {
-                    this.menus = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
+                    if (res.result.length) {
+                        this.menus = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
+                    } else {
+                        // 没有菜单项，隐藏
+                        this.menuVisible = false;
+                    }
                 })
                 .catch(() => {});
         }
