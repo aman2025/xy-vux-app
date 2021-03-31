@@ -40,8 +40,10 @@ export default {
     methods: {
         goto(homeUrl) {
             if (homeUrl.indexOf('ManageApp') == -1) {
-                console.log(getBaseUrl());
-                window.location.href = getBaseUrl() + PageUtils.getPageGateWay() + homeUrl;
+                if(homeUrl.charAt(0) == '/') {
+                    homeUrl = homeUrl.substr(1);
+                }
+                window.location.href =   PageUtils.getPageGateWay() + homeUrl;
             } else {
                 this.$router.push(homeUrl);
             }

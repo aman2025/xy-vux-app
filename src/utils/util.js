@@ -31,7 +31,8 @@ export const getLink = link => {
     return link;
 };
 
-export const getParameter = (search, name) => {
+export const getParameter = ( name) => {
+    const search = window.location.search;
     const [, query = ''] = search.split('?');
     const [hit = ''] = query.split('&').filter(item => name === item.split('=')[0]);
     const [, value = ''] = hit.split('=');
@@ -166,9 +167,8 @@ export const PageUtils = (function(_global) {
             return PageUtils.getPageGateWay() + PAGE_NAME + '/' + path;
         },
         geLoginUrl: function() {
-            const query = window.location.search;
-            const appName = getParameter(query, 'appName');
-            const terminal = getParameter(query, 'terminal');
+            const appName = getParameter('appName');
+            const terminal = getParameter( 'terminal');
             return PageUtils.getServiceUrl(`login?appName=${appName}&terminal=${terminal}`)
         }
     };

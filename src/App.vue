@@ -24,12 +24,13 @@ export default {
     },
     created() {
         //设置store中的appName, url参数获取
-        const query = window.location.search;
-        const appName = getParameter(query, 'appName');
+        const appName = getParameter('appName');
+        const terminal = getParameter('terminal');
         this.$store.commit('setAppName', appName);
+        this.$store.commit('setTerminal', terminal);
     },
     mounted() {
-        if (!this.$route.meta.unRequireAuth) {
+        if (this.$route.meta.requireAuth) {
            this.getUser();
         }
     },

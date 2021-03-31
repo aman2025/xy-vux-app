@@ -64,7 +64,7 @@ export default {
             };
             const requestPortlets = (data) => request.post(url, data);
             requestPortlets(data).then((res) => {
-                this.tabData = res.result; // todo: badge-label新通知提示
+                this.tabData = res.result || []; // todo: badge-label新通知提示
             });
         },
         // 根据模板显示组件

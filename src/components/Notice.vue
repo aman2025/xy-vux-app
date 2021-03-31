@@ -44,7 +44,8 @@ export default {
     },
     methods: {
         linkto(path) {
-            path && this.$router.push(path);
+            // path && this.$router.push(path);
+            window.location.href =  path;
         },
         // 门户模板是list数据
         getListOfTpl(url) {
@@ -55,9 +56,10 @@ export default {
             const requestTpl = (data) => request.post(url, data);
             requestTpl(data)
                 .then((res) => {
-                    this.contentData = _.groupBy(res.result.rows, 'category');
-                    this.total = res.result.total;
-                    this.totalBadge = res.result.totalBadge;
+                    const result = res.result || {};
+                    this.contentData = _.groupBy(result.rows, 'category');
+                    this.total = result.total;
+                    this.totalBadge = result.totalBadge;
                 })
                 .catch(() => {});
         }

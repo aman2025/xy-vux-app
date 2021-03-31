@@ -16,56 +16,56 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'validLogin',
-            component: ValidLogin,
-            meta: {
-                unRequireAuth: true
-            }
-        },
-        {
-            path: '/index',
             name: 'index',
-            component: Index
+            component: Index,
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: '/manageApp',
             name: 'manageApp',
-            component: ManageApp
+            component: ManageApp,
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: '/noticeDetail',
             name: 'noticeDetail',
-            component: NoticeDetail
+            component: NoticeDetail,
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: '/boardDetail',
             name: 'boardDetail',
-            component: BoardDetail
+            component: BoardDetail,
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: '/bind',
             name: 'bind',
-            component: Bind,
-            meta: {
-                unRequireAuth: true
-            }
+            component: Bind
         },
         {
             path: '/bindFailed',
             name: 'bindFailed',
-            component: BindFailed,
-            meta: {
-                unRequireAuth: true
-            }
+            component: BindFailed
         },
         {
             path: '/obtainAuthCode',
             name: 'obtainAuthCode',
-            component: ObtainAuthCode,
-            meta: {
-                unRequireAuth: true
-            }
-        }
+            component: ObtainAuthCode
+        },
+        {
+            path: '/validLogin',
+            name: 'validLogin',
+            component: ValidLogin
+        },
     ]
 });
 

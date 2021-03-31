@@ -8,7 +8,8 @@ export default new Vuex.Store({
         menuActiveId: '999',
         tabActiveIndex: 0,
         isLoad: false,
-        appName: ''
+        appName: '',
+        terminal : ''
     },
     getters: {},
     mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
         },
         setAppName(state, name) {
             state.appName = name;
+        },
+        setTerminal(state, name) {
+            state.terminal = name;
         }
     },
     actions: {},

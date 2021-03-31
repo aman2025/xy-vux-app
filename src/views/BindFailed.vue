@@ -5,10 +5,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { Msg, XButton } from 'vux';
-import request from '../utils/request';
-import { PageUtils } from '../utils/util';
 
 export default {
     name: 'Bind',
@@ -18,8 +15,8 @@ export default {
     },
     data() {
         return {
-            description: '该账号已经被锁定或冻结,请联系管理员!',
             icon: 'warn',
+            description:'该账号已经被锁定或冻结,请联系管理员!',
             buttons: [
                 {
                     type: 'primary',
@@ -39,7 +36,7 @@ export default {
             this.$router.push('/bind');
         },
         toHome() {
-            this.$router.push('/index');
+            this.$router.push('/');
         }
     }
 };

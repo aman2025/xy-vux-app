@@ -16,7 +16,7 @@
 
 <script>
 import request from '../utils/request';
-import { formatTreeData } from '../utils/util';
+import { formatTreeData,PageUtils } from '../utils/util';
 
 export default {
     components: {},
@@ -32,7 +32,11 @@ export default {
     },
     methods: {
         linkto(path) {
-            path && this.$router.push(path);
+            if(path.charAt(0) == '/') {
+                path = path.substr(1);
+            }
+            window.location.href =  PageUtils.getPageGateWay() + path;
+            // path && this.$router.push(path);
         },
         // 门户模板是menu数据
         getMenuOfTpl(url) {

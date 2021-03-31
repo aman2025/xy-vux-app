@@ -1,3 +1,6 @@
+<template>
+
+</template>
 <script>
     import axios from 'axios';
     import { PageUtils,getParameter } from '../utils/util';
@@ -19,7 +22,7 @@
                     }else {
                         this.$store.state.login = true;
                         //已经登入，跳转到首页
-                        redirect = redirect || '/index';
+                        redirect = redirect || '/';
                         this.$router.push(redirect);
                     }
                 })

@@ -89,7 +89,7 @@ export default {
             const requestMyMenu = (data) => request.post(url, data); // requestMyMen() 返回一个promise
             requestMyMenu(data)
                 .then((res) => {
-                    this.myMenuData = res.result;
+                    this.myMenuData = res.result || [];
                 })
                 .then(() => {
                     this.getAllMenu(this.myMenuData);

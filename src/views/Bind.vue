@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { Toast, XInput, XButton, Group } from 'vux';
 import request from '../utils/request';
 import { PageUtils } from '../utils/util';
@@ -39,9 +38,11 @@ export default {
         // post保存
         bindAccount() {
             const url = PageUtils.getServiceUrl('bind');
+            const terminal = this.$store.state.terminal;
             const data = {
                 userCode: this.account.userCode,
-                password: this.account.password
+                password: this.account.password,
+                terminal: terminal
             };
             const requestBind = (data) => request.post(url, data);
             requestBind(data).then((res) => {
@@ -59,7 +60,7 @@ export default {
         onHide() {
             if (this.toastCode == 0 || this.errorCode == 'BIZ.AUTH_CODE_EXPIRE') {
                 //成功后跳转
-                this.$router.push('/index');
+                this.$router.push('/');
             }
         }
     }

@@ -49,9 +49,10 @@ export default {
     },
     methods: {
         goto(homeUrl) {
-            const url = window.location.href;
-            const base_url = url.split('?')[0];
-            window.location.href = base_url + PageUtils.getPageGateWay() + homeUrl;
+            if(homeUrl.charAt(0) == '/') {
+                homeUrl = homeUrl.substr(1);
+            }
+            window.location.href =  PageUtils.getPageGateWay() + homeUrl;
         }
     }
 };
