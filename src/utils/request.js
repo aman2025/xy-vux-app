@@ -4,18 +4,18 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { isPlainObject, getParameter } from './util';
+import { isPlainObject, PageUtils } from './util';
 import store from '../store';
 
 function goLogin() {
-    const url = window.location.href;
-    const query = window.location.search;
-    const appName = getParameter(query, 'appName');
-    const terminal = getParameter(query, 'terminal');
-    localStorage.removeItem('token');
-    const base_url = url.split('?')[0];
-    // console.log(window.location.href.split('?')[0]);
-    window.location.href = `${base_url}login?appName=${appName}&terminal=${terminal}`;
+    // const url = window.location.href;
+    // const query = window.location.search;
+    // const appName = getParameter(query, 'appName');
+    // const terminal = getParameter(query, 'terminal');
+    // localStorage.removeItem('token');
+    // const base_url = url.split('?')[0];
+    // // console.log(window.location.href.split('?')[0]);
+    window.location.href =  PageUtils.geLoginUrl();
 }
 
 // loading, count防止同时多个请求，执行多次loading

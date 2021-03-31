@@ -29,8 +29,8 @@ export default {
         this.$store.commit('setAppName', appName);
     },
     mounted() {
-        if (this.$route.path.indexOf('bind') == -1 || this.$route.path.indexOf('obtainAuthCode') == -1) {
-            this.getUser();
+        if (!this.$route.meta.unRequireAuth) {
+           this.getUser();
         }
     },
     methods: {

@@ -164,6 +164,12 @@ export const PageUtils = (function(_global) {
          */
         getPageUrl: function(path) {
             return PageUtils.getPageGateWay() + PAGE_NAME + '/' + path;
+        },
+        geLoginUrl: function() {
+            const query = window.location.search;
+            const appName = getParameter(query, 'appName');
+            const terminal = getParameter(query, 'terminal');
+            return PageUtils.getServiceUrl(`login?appName=${appName}&terminal=${terminal}`)
         }
     };
 })(global);

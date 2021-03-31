@@ -59,7 +59,7 @@ export default {
         onHide() {
             if (this.toastCode == 0 || this.errorCode == 'BIZ.AUTH_CODE_EXPIRE') {
                 //成功后跳转
-                this.$router.push('/');
+                this.$router.push('/index');
             }
         }
     }
