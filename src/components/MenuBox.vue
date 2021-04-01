@@ -72,7 +72,7 @@ export default {
             const requestMenu = (data) => request.post(url, data);
             requestMenu(data)
                 .then((res) => {
-                    if (res.result.length) {
+                    if (res.retCode == 0 && res.result) {
                         this.menus = formatTreeData(res.result, 'moduleCode', 'parentModuleCode');
                     } else {
                         // 没有菜单项，隐藏

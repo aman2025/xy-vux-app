@@ -15,7 +15,7 @@ function goLogin() {
     // localStorage.removeItem('token');
     // const base_url = url.split('?')[0];
     // // console.log(window.location.href.split('?')[0]);
-    window.location.href =  PageUtils.geLoginUrl();
+    window.location.href = PageUtils.geLoginUrl();
 }
 
 // loading, count防止同时多个请求，执行多次loading
@@ -80,7 +80,7 @@ const request = () => {
             // 没有模板, res是html片段
             if (typeof response.data != 'string') {
                 const { error, retCode } = response.data;
-                if (retCode != 0) {
+                if (retCode != 0 && error) {
                     if (error.code == 'BIZ.UN_AUTHN') {
                         goLogin();
                     } else {
