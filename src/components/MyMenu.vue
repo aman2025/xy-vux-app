@@ -3,7 +3,7 @@
         <!-- my-menu -->
         <div class="sub-menu">
             <div class="sub-menu-item" v-for="item in myMenuData.slice(0, 7)" :key="item.moduleCode" @click="goto(item.homeUrl)">
-                <i :style="item.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
+                <i :style="item.iconUrl ? 'background-image:url(' + getIconUrl(item.iconUrl) + ')' : ''"></i>
                 <span>{{ item.moduleName }}</span>
             </div>
             <div class="sub-menu-item" @click="goto(allItem.homeUrl)">
@@ -47,6 +47,12 @@ export default {
             } else {
                 this.$router.push(homeUrl);
             }
+        },
+        getIconUrl(iconUrl) {
+            if(iconUrl.charAt(0) == '/') {
+                iconUrl = iconUrl.substr(1);
+            }
+            return  PageUtils.getPageGateWay() + iconUrl;
         },
         // 获取我的菜单
         getMyMenu() {

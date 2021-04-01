@@ -42,8 +42,10 @@ export default {
             const data = {
                 userCode: this.account.userCode,
                 password: this.account.password,
-                terminal: terminal
             };
+            if(terminal) {
+                data.terminal = terminal;
+            }
             const requestBind = (data) => request.post(url, data);
             requestBind(data).then((res) => {
                 this.toastVisible = true;

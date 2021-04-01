@@ -5,7 +5,7 @@
             <div>
                 <ul>
                     <li v-for="item in apps" :key="item.moduleCode">
-                        <i :style="item.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
+                        <i :style="item.iconUrl ? 'background-image:url(' + getIconUrl(item.iconUrl) + ')' : ''"></i>
                         <span>{{ item.moduleName }}</span>
                         <em :class="extype == 'del' ? 'icon-delete' : 'icon-add'" @click="exChange(extype, item.moduleCode)"></em>
                     </li>
@@ -40,6 +40,12 @@ export default {
             exData['data'] = curData;
             exData['type'] = type;
             this.$emit('input', exData); // 修改v-model
+        },
+        getIconUrl(iconUrl) {
+            if(iconUrl.charAt(0) == '/') {
+                iconUrl = iconUrl.substr(1);
+            }
+            return  PageUtils.getPageGateWay() + iconUrl;
         }
     }
 };

@@ -5,7 +5,7 @@
             <div>
                 <ul>
                     <li v-for="(obj, index) in item.children" :key="index" @click="linkto(obj.homeUrl)">
-                        <i :style="obj.iconUrl ? 'background-image:url(' + item.iconUrl + ')' : ''"></i>
+                        <i :style="obj.iconUrl ? 'background-image:url(' + getIconUrl(obj.iconUrl) + ')' : ''"></i>
                         <span>{{ obj.moduleName }}</span>
                     </li>
                 </ul>
@@ -37,6 +37,12 @@ export default {
             }
             window.location.href =  PageUtils.getPageGateWay() + path;
             // path && this.$router.push(path);
+        },
+        getIconUrl(iconUrl) {
+            if(iconUrl.charAt(0) == '/') {
+                iconUrl = iconUrl.substr(1);
+            }
+          return  PageUtils.getPageGateWay() + iconUrl;
         },
         // 门户模板是menu数据
         getMenuOfTpl(url) {
