@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { PageUtils } from '../utils/util';
 export default {
     components: {},
     props: ['apps', 'title', 'extype'],
@@ -42,10 +43,10 @@ export default {
             this.$emit('input', exData); // 修改v-model
         },
         getIconUrl(iconUrl) {
-            if(iconUrl.charAt(0) == '/') {
+            if (iconUrl.charAt(0) == '/') {
                 iconUrl = iconUrl.substr(1);
             }
-            return  PageUtils.getPageGateWay() + iconUrl;
+            return PageUtils.getPageGateWay() + iconUrl;
         }
     }
 };
