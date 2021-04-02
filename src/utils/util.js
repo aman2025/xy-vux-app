@@ -32,11 +32,7 @@ export const getLink = link => {
 };
 
 export const getParameter = ( name) => {
-    const search = window.location.search;
-    const [, query = ''] = search.split('?');
-    const [hit = ''] = query.split('&').filter(item => name === item.split('=')[0]);
-    const [, value = ''] = hit.split('=');
-    return value;
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || ''
 };
 
 //base_url，如果没有？，去#号前
@@ -129,6 +125,7 @@ export const PageUtils = (function(_global) {
             return pageGateWay;
         },
         getServiceGateWay: function() {
+            debugger;
             if (serviceGateWay) return serviceGateWay;
             var basepath = WebConfig && WebConfig.SERVICE_GATEWAY;
             //如果没有配置
@@ -139,7 +136,7 @@ export const PageUtils = (function(_global) {
             // 如果不是相对路径
             if (basepath.indexOf('/') == 0) {
                 basepath = window.location.origin + basepath;
-            } else if (basepath.indexOf('http:') == -1 || basepath.indexOf('https:') == -1) {
+            } else if (basepath.indexOf('http:') == -1 && basepath.indexOf('https:') == -1) {
                 //没带协议,以当前页面的protocol为准
                 basepath = window.location.protocol + '//' + basepath;
             }
@@ -169,7 +166,8 @@ export const PageUtils = (function(_global) {
         geLoginUrl: function() {
             const appName = getParameter('appName');
             const terminal = getParameter( 'terminal');
-            return PageUtils.getServiceUrl(`login?appName=${appName}&terminal=${terminal}`)
+            const redirectBasePath = PageUtils.getPageUrl("");
+            return PageUtils.getServiceUrl(`login?appName=${appName}&terminal=${terminal}&redirectBasePath=${redirectBasePath}`)
         }
     };
 })(global);
