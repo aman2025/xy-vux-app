@@ -32,6 +32,7 @@ import request from '../utils/request';
 import _ from 'lodash';
 
 export default {
+    name: 'Notice',
     components: {},
     props: ['contentUrl'],
     data() {
@@ -41,17 +42,19 @@ export default {
     },
     mounted() {
         this.getListOfTpl(this.contentUrl);
+        // 监听滚动，
+        window.addEventListener('scroll', this.scrollEvent);
     },
     methods: {
         linkto(path) {
             // path && this.$router.push(path);
-            window.location.href =  path;
+            window.location.href = path;
         },
         // 门户模板是list数据
         getListOfTpl(url) {
             const data = {
                 pageNum: 1,
-                pageSize: 1000
+                pageSize: 10
             };
             const requestTpl = (data) => request.post(url, data);
             requestTpl(data)
@@ -62,7 +65,19 @@ export default {
                     this.totalBadge = result.totalBadge;
                 })
                 .catch(() => {});
+        },
+        // 滚动到底部事件
+        scrollEvent() {
+            var scr = document.documentElement.scrollTop || document.body.scrollTop; // 向上滚动的那一部分高度
+            var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
+            var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
+            if (scr + clientHeight + 10 >= scrHeight) {
+                console.log('a');
+            }
         }
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.scrollEvent);
     }
 };
 </script>
