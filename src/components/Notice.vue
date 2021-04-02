@@ -23,6 +23,7 @@
             </div>
 
             <!-- 分类 -->
+            <div v-if="this.loadingImg">加载更多...</div>
         </div>
     </div>
 </template>
@@ -37,13 +38,18 @@ export default {
     props: ['contentUrl'],
     data() {
         return {
-            contentData: {}
+            contentData: {},
+            isMoreLoad: true, // 是否显示加载更多
+            loadingImg: false, // 加载更多时显示loading图
+            definePageNum: 1, // 默认加载页数
+            definePageSize: 10, // 默认每页数量
+            totals: null // 用来存放总数量
         };
     },
     mounted() {
         this.getListOfTpl(this.contentUrl);
-        // 监听滚动，
-        window.addEventListener('scroll', this.scrollEvent);
+        // 监听滚动，debounce
+        window.addEventListener('scroll', _.debounce(this.scrollEvent, 100));
     },
     methods: {
         linkto(path) {
@@ -52,17 +58,24 @@ export default {
         },
         // 门户模板是list数据
         getListOfTpl(url) {
+            var _this = this;
             const data = {
-                pageNum: 1,
-                pageSize: 10
+                pageNum: this.definePageNum,
+                pageSize: this.definePageSize
             };
             const requestTpl = (data) => request.post(url, data);
             requestTpl(data)
                 .then((res) => {
                     const result = res.result || {};
-                    this.contentData = _.groupBy(result.rows, 'category');
-                    this.total = result.total;
-                    this.totalBadge = result.totalBadge;
+                    _this.contentData = _.groupBy(result.rows, 'category');
+                    // 加载更多
+                    _this.totals = result.total;
+                    if (_this.totals - _this.definePageNum * definePageSize > 0) {
+                        _this.isMoreLoad = true;
+                    } else {
+                        _this.isMoreLoad = false;
+                    }
+                    _this.loadingImg = false;
                 })
                 .catch(() => {});
         },
@@ -72,8 +85,23 @@ export default {
             var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
             var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
             if (scr + clientHeight + 10 >= scrHeight) {
-                console.log('a');
+                console.log(this.isMoreLoad);
+                if (this.isMoreLoad) {
+                    //this.isMoreLoad控制滚动是否加载更多
+                    this.definePageNum = this.definePageNum + 1; // 加载更多是definePageNum+1
+                    this.scrollRequest();
+                } else {
+                    return;
+                }
             }
+        },
+        scrollRequest() {
+            // 防止多次加载
+            if (this.loadingImg) {
+                return;
+            }
+            this.loadingImg = true;
+            this.getListOfTpl(this.contentUrl);
         }
     },
     destroyed() {
