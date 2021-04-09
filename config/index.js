@@ -11,7 +11,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'http://10.169.2.189:8082/', //设置你调用的接口域名和端口号 , 开发环境 http://10.169.2.189:8082/
+                target: ' http://10.169.2.189:8082/', //设置你调用的接口域名和端口号 , 开发环境 http://10.169.2.189:8082/
                 changeOrigin: true, //是否跨域
                 pathRewrite: {
                     '^/': '/'

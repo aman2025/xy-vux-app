@@ -1,3 +1,5 @@
+import store from '../store';
+
 const global = window;
 const WebConfig = global.WebConfig || {};
 const SERVICE_NAME = WebConfig.SERVICE_NAME || 'mee';
@@ -163,8 +165,8 @@ export const PageUtils = (function(_global) {
             return PageUtils.getPageGateWay() + PAGE_NAME + '/' + path;
         },
         geLoginUrl: function() {
-            const appName = getParameter('appName');
-            const terminal = getParameter( 'terminal');
+            const appName = store.state.appName;
+            const terminal = store.state.terminal;
             const redirectBasePath = PageUtils.getPageUrl("");
             return PageUtils.getServiceUrl(`login?appName=${appName}&terminal=${terminal}&redirectBasePath=${redirectBasePath}`)
         }
