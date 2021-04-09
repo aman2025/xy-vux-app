@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="app-container">
-        <loading :show="$store.state.isLoad" text="加载中..."></loading>
+        <loading :show="$store.state.isLoad" text="加载中..." transition=""></loading>
         <XyzCommonVue></XyzCommonVue>
         <router-view></router-view>
     </div>
@@ -31,7 +31,7 @@ export default {
     },
     mounted() {
         if (this.$route.meta.requireAuth) {
-           this.getUser();
+            this.getUser();
         }
     },
     methods: {
