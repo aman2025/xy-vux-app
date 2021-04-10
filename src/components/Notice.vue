@@ -22,7 +22,7 @@
                 </div>
             </div>
             <!-- 分类 -->
-            <div v-if="this.loadingImg" class="loadMore"><spinner type="ios" size="20px"></spinner> <span class="text">加载更多...</span></div>
+            <div v-if="this.loadingImg" class="loadMore"><spinner type="ios" size="20px"></spinner> <span class="text">正在加载...</span></div>
         </div>
     </div>
 </template>
