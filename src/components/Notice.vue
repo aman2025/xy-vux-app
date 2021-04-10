@@ -21,29 +21,30 @@
                     </div>
                 </div>
             </div>
-
             <!-- 分类 -->
-            <div v-if="this.loadingImg">加载更多...</div>
+            <div v-if="this.loadingImg" class="loadMore"><spinner type="ios" size="20px"></spinner> <span class="text">加载更多...</span></div>
         </div>
     </div>
 </template>
 
 <script>
+import { Spinner } from 'vux';
 import request from '../utils/request';
 import _ from 'lodash';
 
 export default {
     name: 'Notice',
-    components: {},
+    components: { Spinner },
     props: ['contentUrl'],
     data() {
         return {
             contentData: {},
+            dataRows: [],
             isMoreLoad: true, // 是否显示加载更多
             loadingImg: false, // 加载更多时显示loading图
             definePageNum: 1, // 默认加载页数
             definePageSize: 10, // 默认每页数量
-            totals: null // 用来存放总数量
+            totals: 0 // 用来存放总数量
         };
     },
     mounted() {
@@ -67,15 +68,16 @@ export default {
             requestTpl(data)
                 .then((res) => {
                     const result = res.result || {};
-                    _this.contentData = _.groupBy(result.rows, 'category');
+                    this.dataRows = this.dataRows.concat(result.rows);
+                    this.contentData = _.groupBy(this.dataRows, 'category');
                     // 加载更多
-                    _this.totals = result.total;
-                    if (_this.totals - _this.definePageNum * definePageSize > 0) {
-                        _this.isMoreLoad = true;
+                    this.totals = result.total;
+                    if (this.totals - this.definePageNum * this.definePageSize > 0) {
+                        this.isMoreLoad = true;
                     } else {
-                        _this.isMoreLoad = false;
+                        this.isMoreLoad = false;
                     }
-                    _this.loadingImg = false;
+                    this.loadingImg = false;
                 })
                 .catch(() => {});
         },
@@ -85,10 +87,9 @@ export default {
             var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
             var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
             if (scr + clientHeight + 10 >= scrHeight) {
-                console.log(this.isMoreLoad);
                 if (this.isMoreLoad) {
                     //this.isMoreLoad控制滚动是否加载更多
-                    this.definePageNum = this.definePageNum + 1; // 加载更多是definePageNum+1
+                    this.definePageNum = this.definePageNum + 1;
                     this.scrollRequest();
                 } else {
                     return;
@@ -109,7 +110,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scope>
 .notice-container {
     padding: 0 1.5rem;
 }
@@ -186,5 +187,13 @@ export default {
     font-weight: bold;
     color: #333;
     padding: 2.1rem 0.5rem 0.5rem 0;
+}
+.loadMore {
+    text-align: center;
+    padding: 10px 0 0;
+}
+.loadMore .text {
+    vertical-align: middle;
+    margin-left: 1px;
 }
 </style>
