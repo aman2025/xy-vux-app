@@ -7,6 +7,10 @@ import qs from 'qs';
 import { isPlainObject, PageUtils } from './util';
 import store from '../store';
 
+import Vue from 'vue';
+import { AlertPlugin } from 'vux';
+Vue.use(AlertPlugin);
+
 function goLogin() {
     // const url = window.location.href;
     // const query = window.location.search;
@@ -84,7 +88,10 @@ const request = () => {
                     if (error.code == 'BIZ.UN_AUTHN') {
                         goLogin();
                     } else {
-                        alert(error.message);
+                        Vue.$vux.alert.show({
+                            title: '提示',
+                            content: error.message
+                        });
                     }
                     closeLoading();
                     return Promise.reject(new Error(error.message));
