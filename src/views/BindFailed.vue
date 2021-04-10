@@ -6,6 +6,7 @@
 
 <script>
 import { Msg, XButton } from 'vux';
+import {PageUtils} from "../utils/util";
 
 export default {
     name: 'Bind',
@@ -20,13 +21,13 @@ export default {
             buttons: [
                 {
                     type: 'primary',
-                    text: '绑定',
+                    text: '重新绑定',
                     onClick: this.toBind.bind(this)
                 },
                 {
                     type: 'default',
-                    text: '首页',
-                    onClick: this.toHome.bind(this)
+                    text: '退出',
+                    onClick: this.toLogout.bind(this)
                 }
             ]
         };
@@ -35,8 +36,12 @@ export default {
         toBind() {
             this.$router.push('/bind');
         },
-        toHome() {
-            this.$router.push('/');
+        toLogout() {
+            // this.$router.push('/');
+            const appName = getParameter('appName');
+            const terminal = getParameter( 'terminal');
+            const redirectBasePath = PageUtils.getPageUrl("");
+            location.href = PageUtils.getServiceUrl(`logout?appName=${appName}&terminal=${terminal}&redirectBasePath=${redirectBasePath}`)
         }
     }
 };
