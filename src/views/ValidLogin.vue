@@ -4,6 +4,9 @@
 <script>
     import axios from 'axios';
     import { PageUtils,getParameter } from '../utils/util';
+    import Vue from 'vue';
+    import { AlertPlugin } from 'vux';
+    Vue.use(AlertPlugin);
     export default {
         name: 'ValidLogin',
         created() {
@@ -16,7 +19,10 @@
                             //未登入 ，跳转到 登入页面
                             window.location.href =  PageUtils.geLoginUrl();
                         } else {
-                            alert(error.message);
+                            Vue.$vux.alert.show({
+                                title: '提示',
+                                content: error.message
+                            });
                         }
                         return Promise.reject(new Error(error.message));
                     }else {

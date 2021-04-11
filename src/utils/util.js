@@ -125,7 +125,6 @@ export const PageUtils = (function(_global) {
             return pageGateWay;
         },
         getServiceGateWay: function() {
-            debugger;
             if (serviceGateWay) return serviceGateWay;
             var basepath = WebConfig && WebConfig.SERVICE_GATEWAY;
             //如果没有配置

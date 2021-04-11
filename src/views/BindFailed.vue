@@ -6,7 +6,7 @@
 
 <script>
 import { Msg, XButton } from 'vux';
-import {PageUtils} from "../utils/util";
+import {PageUtils,getParameter} from "../utils/util";
 
 export default {
     name: 'Bind',
