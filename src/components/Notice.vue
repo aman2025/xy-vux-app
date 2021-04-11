@@ -41,26 +41,21 @@ export default {
             contentData: {},
             dataRows: [],
             isMoreLoad: true, // 是否显示加载更多
-            loadingImg: false, // 加载更多时显示loading图
+            loadingImg: true, // 加载更多时显示loading图
             definePageNum: 1, // 默认加载页数
             definePageSize: 10, // 默认每页数量
-            totals: 0, // 用来存放总数量
-            isCurrent: false // 滚动同时监听了2个组件，避免触底会请求2次
+            totals: 0 // 用来存放总数量
         };
     },
     mounted() {
-        console.log('mounted1...'); // todo； 待办触底2次，通知未加载，如果切换到通知，会触发两次请求
+        // 只执行一次
         this.getListOfTpl(this.contentUrl);
-        // 监听滚动，debounce
-        window.addEventListener('scroll', _.debounce(this.scrollEvent, 100));
     },
     activated() {
-        // 进入：开启触底后请求
-        this.isCurrent = true;
+        // 监听滚动，用_.debounce会使删除监听失效
+        window.addEventListener('scroll', this.scrollEvent);
     },
     deactivated() {
-        // 离开：关闭触底后请求
-        this.isCurrent = false;
         window.removeEventListener('scroll', this.scrollEvent);
     },
     methods: {
@@ -95,14 +90,13 @@ export default {
         },
         // 滚动到底部事件
         scrollEvent() {
+            console.log('.1.');
             var scr = document.documentElement.scrollTop || document.body.scrollTop; // 向上滚动的那一部分高度
             var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
             var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
             if (scr + clientHeight + 10 >= scrHeight) {
-                if (this.isMoreLoad && this.isCurrent) {
-                    console.log(2);
+                if (this.isMoreLoad) {
                     //this.isMoreLoad控制滚动是否加载更多
-                    this.definePageNum = this.definePageNum + 1;
                     this.scrollRequest();
                 } else {
                     return;
@@ -114,13 +108,10 @@ export default {
             if (this.loadingImg) {
                 return;
             }
-            console.log(1);
+            this.definePageNum = this.definePageNum + 1;
             this.loadingImg = true;
             this.getListOfTpl(this.contentUrl);
         }
-    },
-    destroyed() {
-        // window.removeEventListener('scroll', this.scrollEvent);
     }
 };
 </script>
