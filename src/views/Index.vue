@@ -11,6 +11,8 @@
                 <tab :line-width="2" class="shadow-top" custom-bar-width="32px" :active-color="tabActive.color" v-model="tabActive.index">
                     <tab-item v-for="(item, index) in tabData" :key="index" :selected="tabActive.index == index" @on-item-click="changeTab(index)">{{ item.portletName }}</tab-item>
                 </tab>
+            </div>
+            <div>
                 <div v-for="(item, index) in tabData" :key="index">
                     <keep-alive>
                         <component v-if="tabActive.index == index" v-bind:is="pickTemp(item.contentTemp)" :contentUrl="item.contentUrl"></component>
